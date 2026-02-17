@@ -13,13 +13,18 @@ The influence of runtime on average IMDb rating
 
 *Provide background/motivation for your project*
 
-**Mention your research question**
+Research question: “To what extent does runtime predict the average IMDb rating of films and TV movies, and to what extent is this relationship moderated by genre?”
 
 ## Data
 
 - What dataset(s) did you use? How was it obtained?
-- How many observations are there in the final dataset? 
+The data sets that will be used are title.basics.tsv.gz and title.ratings.tsv.gz. These sets are obtaind via the official site of IMDb and are progomaticly downloaded in the R script.
+  
+- How many observations are there in the final dataset?
+The final dataset contains 1.636.745 observations 
+
 - Include a table of variable description/operstionalisation. 
+
 
 ## Method
 
