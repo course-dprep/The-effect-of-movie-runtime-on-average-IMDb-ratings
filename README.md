@@ -1,10 +1,4 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/-5U7Jn2O)
-> **Important:** This is a template repository to help you set up your team project.  
->  
-> You are free to modify it based on your needs. For example, if your data is downloaded using *multiple* scripts instead of a single one (as shown in `\data\`), structure the code accordingly. The same applies to all other starter files—adapt or remove them as needed.  
->  
-> Feel free to delete this text.
-
 
 # The influence of runtime on average IMDb rating
 
@@ -29,7 +23,7 @@ The independent variable is the runtime of a film or TV show episode.
 It is measured in minutes and treated as a continuous variable.
 Runtime represents the length of the content.
 
-### Control variable- Number of votes (numVotes)
+### Control variable - Number of votes (numVotes)
 This control variable measures the total number of IMDb user votes.
 It is a count variable and captures the popularity and visibility of a title.
 Due to its skewed distribution, it may be log-transformed in the regression analysis.
