@@ -17,19 +17,16 @@ This research question aligns with the available IMDb datasets and focuses on wh
 
 ## Data
 
-- What dataset(s) did you use? How was it obtained?
-The data sets that will be used are title.basics.tsv.gz and title.ratings.tsv.gz. These sets are obtaind via the official site of IMDb and are progomaticly downloaded in the R script.
-  
-- How many observations are there in the final dataset?
-The final dataset contains 1.636.745 observations 
+The data sets that will be used are title.basics.tsv.gz and title.ratings.tsv.gz. These sets are obtained via the official site of IMDb and are programmatically downloaded in the R script. The final dataset contains 1.636.745 observations 
 
 - Include a table of variable description/operstionalisation. 
 
 
 ## Method
 
-- What methods do you use to answer your research question?
-- Provide justification for why it is the most suitable. 
+To answer the research question, we use linear regression analysis. The dependent variable is the average rating and runtime serves as the independent variable. The number of votes is included as a control variable to account for the differences in visibility and popularity across films and TV movies. To examine if the relationship between runtime and the average rating is different across genre categories, genre is the moderator. This allows us to evaluate whether the relationship between runtime and the average rating varies depending on genre. 
+
+Linear regression analysis is the most suitable method to answer the research question, because the dependent variable (average rating) and independent variable (runtime) are both continuous. 
 
 ## Preview of Findings 
 - Describe the gist of your findings (save the details for the final paper!)
