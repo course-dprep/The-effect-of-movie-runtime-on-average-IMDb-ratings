@@ -48,12 +48,15 @@ Linear regression analysis is the most suitable method to answer the research qu
 This repository contains a complete data analysis pipeline for working with IMDb data. It covers the full workflow: downloading raw datasets, cleaning and merging data, and generating analytical outputs.
 
 team-projects-team-1
+
 ├── data
+
 │   ├── download-data.R          
 │   ├── imdb.ratings.tsv.gz      
 │   ├── imdb.basics.tsv.gz      
 │   └── imdb.rds                 
 │
+
 ├── reporting
 │   └── Markdown-file-ratings-basics-imdb.Rmd   
 │
