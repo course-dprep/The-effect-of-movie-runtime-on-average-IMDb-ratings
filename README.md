@@ -43,16 +43,43 @@ Linear regression analysis is the most suitable method to answer the research qu
 - How are the findings/end product of the project deployed?
 - Explain the relevance of these findings/product. 
 
-## Repository Overview 
-This repository contains the workflow for downloading, cleaning, merging, and analyzing IMDB data.
 
 ## Repository Overview 
+This repository contains a complete data analysis pipeline for working with IMDb data. It covers the full workflow: downloading raw datasets, cleaning and merging data, and generating analytical outputs.
 
-**Include a tree diagram that illustrates the repository structure*
+team-projects-team-1
+├── data
+│   ├── download-data.R          # Script to download IMDb datasets
+│   ├── imdb.ratings.tsv.gz      # Raw ratings dataset
+│   ├── imdb.basics.tsv.gz       # Raw title metadata dataset
+│   └── imdb.rds                 # Cleaned and merged dataset
+│
+├── reporting
+│   └── Markdown-file-ratings-basics-imdb.Rmd   # R Markdown analysis report
+│
+├── src
+│   └── ...                      # Data cleaning and transformation scripts
+│
+├── README.md                    # Project documentation
+└── makefile                     # Workflow automation
+
 
 ## Dependencies 
+To run this workflow, the following software and R packages are required:
+- R (version 4.0 or higher)
+- RStudio (recommended)
 
-*Explain any tools or packages that need to be installed to run this workflow.*
+Required R packages:
+- tidyverse
+- dplyr
+- ggplot2
+- readr
+- rmarkdown
+- knitr
+
+Install packages using:
+
+install.packages(c("tidyverse", "rmarkdown", "knitr"))
 
 ## Running Instructions 
 
@@ -62,4 +89,9 @@ This repository contains the workflow for downloading, cleaning, merging, and an
 
 This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
 
-The project is implemented by team < x > members: < insert member details>
+The project is implemented by team 1 members: 
+- Bente van Brussel: b.j.m.vanbrussel@tilburguniversity.edu
+- Niels Deenen: n.deenen@tilburguniversity.edu
+- David Lindwer: d.j.lindwer@tilburguniversity.edu
+- Demi Verburg: d.verburg@tilburguniveristy.edu
+- Marijn van Dooren: m.vandooren@tilburguniversity.edu
