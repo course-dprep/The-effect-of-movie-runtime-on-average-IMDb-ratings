@@ -56,7 +56,6 @@ team-projects-team-1
 │   ├── imdb.basics.tsv.gz      
 │   └── imdb.rds                 
 │
-
 ├── reporting
 
 │   └── Markdown-file-ratings-basics-imdb.Rmd   
