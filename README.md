@@ -44,14 +44,47 @@ Linear regression analysis is the most suitable method to answer the research qu
 - Explain the relevance of these findings/product. 
 
 ## Repository Overview 
+This repository contains the workflow for downloading, cleaning, merging, and analyzing IMDB data.
 
-**Include a tree diagram that illustrates the repository structure*
+### Repository Structure
+team-projects-team-1/
+│
+├── data/
+│ ├── download-data.R
+│ ├── imdb.ratings.tsv.gz
+│ ├── imdb.basics.tsv.gz
+│ └── imdb.rds (merged dataset created during analysis)
+│
+├── reporting/
+│ └── RMarkdown file ratings basics imdb.Rmd
+│
+├── src/
+│ └── (data cleaning and helper scripts)
+│
+├── README.md
+└── makefile
 
-## Dependencies 
+## Dependencies
+To run this workflow, the following software and R packages are required:
 
-*Explain any tools or packages that need to be installed to run this workflow.*
+- R (version 4.0 or higher)
+- RStudio (recommended)
 
-## Running Instructions 
+Required R packages:
+
+- tidyverse
+- dplyr
+- ggplot2
+- readr
+- rmarkdown
+- knitr
+
+Install packages using:
+
+```r
+install.packages(c("tidyverse", "rmarkdown", "knitr"))
+
+## Running Instructions
 
 *Provide step-by-step instructions that have to be followed to run this workflow.*
 
@@ -59,4 +92,9 @@ Linear regression analysis is the most suitable method to answer the research qu
 
 This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
 
-The project is implemented by team < x > members: < insert member details>
+The project is implemented by team 1 members: 
+- Bente van Brussel: b.j.m.vanbrussel@tilburguniversity.edu
+- Niels Deenen: n.deenen@tilburguniversity.edu
+- David Lindwer: d.j.lindwer@tilburguniversity.edu
+- Demi Verburg: d.verburg@tilburguniveristy.edu
+- Marijn van Dooren: m.vandooren@tilburguniversity.edu
