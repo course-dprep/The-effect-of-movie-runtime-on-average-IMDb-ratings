@@ -46,41 +46,15 @@ Linear regression analysis is the most suitable method to answer the research qu
 ## Repository Overview 
 This repository contains the workflow for downloading, cleaning, merging, and analyzing IMDB data.
 
-### Repository Structure
-.
-├── data
-│   ├── download-data.R
-│   ├── imdb.ratings.tsv.gz
-│   ├── imdb.basics.tsv.gz
-│   └── imdb.rds
-├── reporting
-│   └── RMarkdown-file-ratings-basics-imdb.Rmd
-├── src
-│   └── ...
-├── README.md
-└── makefile
+## Repository Overview 
 
-## Dependencies
-To run this workflow, the following software and R packages are required:
+**Include a tree diagram that illustrates the repository structure*
 
-- R (version 4.0 or higher)
-- RStudio (recommended)
+## Dependencies 
 
-Required R packages:
+*Explain any tools or packages that need to be installed to run this workflow.*
 
-- tidyverse
-- dplyr
-- ggplot2
-- readr
-- rmarkdown
-- knitr
-
-Install packages using:
-
-```r
-install.packages(c("tidyverse", "rmarkdown", "knitr"))
-
-## Running Instructions
+## Running Instructions 
 
 *Provide step-by-step instructions that have to be followed to run this workflow.*
 
@@ -88,9 +62,4 @@ install.packages(c("tidyverse", "rmarkdown", "knitr"))
 
 This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
 
-The project is implemented by team 1 members: 
-- Bente van Brussel: b.j.m.vanbrussel@tilburguniversity.edu
-- Niels Deenen: n.deenen@tilburguniversity.edu
-- David Lindwer: d.j.lindwer@tilburguniversity.edu
-- Demi Verburg: d.verburg@tilburguniveristy.edu
-- Marijn van Dooren: m.vandooren@tilburguniversity.edu
+The project is implemented by team < x > members: < insert member details>
