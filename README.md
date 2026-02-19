@@ -48,7 +48,7 @@ Linear regression analysis is the most suitable method to answer the research qu
 
 
 ## Repository Overview 
-# Data and Reproducibility
+### Data and Reproducibility
 The analysis uses the official IMDb datasets:
 - title.basics.tsv.gz
 - title.ratings.tsv.gz
@@ -63,7 +63,7 @@ To ensure a consistent analytical sample:
 
 After cleaning and filtering, the final dataset contains 299,335 unique movie observations.
 
-# Variables
+### Variables
 
 Dependent variable:
 averageRating — continuous IMDb user rating (1–10), representing audience evaluation.
@@ -77,7 +77,7 @@ numVotes (log-transformed) — total number of user votes, capturing visibility 
 Moderator:
 genre (main genre, top 10 + Other) — categorical variable used to test whether the runtime–rating relationship differs across genres.
 
-# Repository Structure
+### Repository Structure
 The repository is organized to support transparency and reproducibility:
 - data/ – scripts for automated data acquisition
 - src/data-preparation/ – data cleaning and variable construction
