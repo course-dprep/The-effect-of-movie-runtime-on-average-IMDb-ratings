@@ -48,28 +48,44 @@ Linear regression analysis is the most suitable method to answer the research qu
 
 
 ## Repository Overview 
-This repository contains a complete data analysis pipeline for working with IMDb data. It covers the full workflow: downloading raw datasets, cleaning and merging data, and generating analytical outputs.
+# Data and Reproducibility
+The analysis uses the official IMDb datasets:
+- title.basics.tsv.gz
+- title.ratings.tsv.gz
 
-team-projects-team-1
+These datasets are programmatically downloaded via scripts in the repository to ensure full reproducibility. The datasets are merged using the unique identifier tconst.                  
 
-├── data
+To ensure a consistent analytical sample:
+- The data are restricted to entries where titleType = "movie".
+- Observations with missing runtime, rating, or vote counts are removed.
+- Because IMDb assigns multiple genres per title, only the first listed genre is used as the primary genre classification to maintain one observation per film.
+- Genres are further grouped into the top 10 most frequent categories, with remaining genres combined into an "Other" category.
 
-│   ├── download-data.R          
-│   ├── imdb.ratings.tsv.gz      
-│   ├── imdb.basics.tsv.gz      
-│   └── imdb.rds                 
-│
-├── reporting
+After cleaning and filtering, the final dataset contains 299,335 unique movie observations.
 
-│   └── Markdown-file-ratings-basics-imdb.Rmd   
-│
-├── src
+# Variables
 
-│   └── ...                     
-│
-├── README.md                    
-└── makefile                     
+Dependent variable:
+averageRating — continuous IMDb user rating (1–10), representing audience evaluation.
 
+Independent variable:
+runtimeMinutes — movie runtime in minutes (continuous).
+
+Control variable:
+numVotes (log-transformed) — total number of user votes, capturing visibility and popularity and improving robustness against skewness.
+
+Moderator:
+genre (main genre, top 10 + Other) — categorical variable used to test whether the runtime–rating relationship differs across genres.
+
+# Repository Structure
+The repository is organized to support transparency and reproducibility:
+- data/ – scripts for automated data acquisition
+- src/data-preparation/ – data cleaning and variable construction
+- src/analysis/ – analytical code
+- reporting/ – RMarkdown report with data preparation and exploratory analysis
+- makefile – pipeline automation
+
+README.md – project documentation
 
 ## Dependencies 
 This project was developed using:
