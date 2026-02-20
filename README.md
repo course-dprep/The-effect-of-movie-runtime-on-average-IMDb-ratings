@@ -43,6 +43,10 @@ Linear regression analysis is the most suitable method to answer the research qu
 
 ## Preview of Findings 
 - Describe the gist of your findings (save the details for the final paper!)
+Preliminary analysis show that the relationship between the average rating and runtime is statistically very weak. The data shows that the correlation between the average rating and runtime is approximately 0.008, which is very close to zero and indicates that movies with a longer runtime do not systematically receive a higher rating. You can also see this in the scatterplot (page 13). The red line has a slight positive trend, but the data points (the small black dots) are very dispersed around the same amount of runtime. This shows unexplained variation between ratings across movies with quite similar runtime. This indicates that runtime alone is not a strong predictor of the average rating of a movie. 
+The correlation between the number of votes (log-transformed) and the average rating is approximately -0.08, which indicates a very small negative correlation. This could indicate that movies with a lot of votes tend to receive more critical evaluations, possibly due to the larger audience for reviews. 
+As shown in the boxplot (page 15), genre category comparisons have a lot of variations in average ratings. For example, the average rating of the genres biography and documentary are quite higher than the average rating of the genre horror. This indicates that genre may moderate in the relationship between the average rating and runtime. 
+
 - How are the findings/end product of the project deployed?
 - Explain the relevance of these findings/product. 
 
