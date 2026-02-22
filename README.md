@@ -54,7 +54,11 @@ The findings of the research are presented in a structured R Markdown report. In
 Furthermore, the workflow is completely reproducible. The IMDb data can be downloaded online automatically and analyzed through a script. This allows other researchers to easily replicate the study or extend the analysis using different selection criteria (for example, the research with focus on one specific genre).
 
 
-- Explain the relevance of these findings/product. 
+- Explain the relevance of these findings/product.
+
+The research findings show that runtime on its own is a very weak predictor of the average rating. This is relevant because it challenges the assumption that longer movies tend to receive higher ratings (Moon et al., 2009). This indicates that runtime is not necessarily a reliable strategy for achieving higher ratings in movies. Moreover, the research shows that genre category comparisons have a lot of variations in average ratings. This means that statements about an ‘ideal movie length’ can generally be misleading, and choices should possibly be approached genre-specific. 
+
+Including the number of votes as a control variable is essential for a more correct interpretation. By controlling for the number of votes in this research, the effect of runtime is estimated with equal visibility, which strenghtens internal validity. 
 
 
 ## Repository Overview 
