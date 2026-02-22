@@ -50,7 +50,7 @@ As shown in the boxplot (page 15), genre category comparisons have a lot of vari
 
 - How are the findings/end product of the project deployed?
 
-The findings of the research are presented in a structured R Markdown pipeline report. In the R Markdown report, the complete data analysis is documented step by step. This report includes data preparation, statistical analysis and visualizations such as scatter plots and box plots. 
+The findings of the research are presented in a structured R Markdown report. In the R Markdown report, the complete data analysis is documented step by step. This report includes data preparation, statistical analysis and visualizations such as scatter plots and box plots. 
 Furthermore, the workflow is completely reproducible. The IMDb data can be downloaded online automatically and analyzed through a script. This allows other researchers to easily replicate the study or extend the analysis using different selection criteria (for example, the research with focus on one specific genre).
 
 
