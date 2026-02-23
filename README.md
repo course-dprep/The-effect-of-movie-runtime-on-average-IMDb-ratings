@@ -16,7 +16,7 @@ To ensure a consistent and comparable sample, the analysis is restricted to movi
 
 IMDb allows multiple genres per title. To avoid duplicate observations and ensure one observation per film, only the first listed genre is used as the primary genre classification (main genre).
 
-After cleaning and filtering, the final dataset contains 299.335 unique movie observations.
+After cleaning and filtering, the final dataset contains 299.473 unique movie observations.
 
 ### Dependent variable - Rating (averageRating)
 The dependent variable is the average IMDb user rating of a movie.
