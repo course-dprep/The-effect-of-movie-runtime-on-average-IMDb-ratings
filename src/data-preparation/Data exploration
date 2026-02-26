@@ -131,6 +131,7 @@ imdb %>%
 hist(imdb$averageRating, breaks = 30, main = "Average Rating", xlab = "Rating")
 hist(log10(imdb$numVotes + 1), breaks = 40, main = "log10(Votes + 1)", xlab = "log10(Votes+1)")
 
+
 ```
 ## Top per type
 ```{r}
