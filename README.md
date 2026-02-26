@@ -75,7 +75,7 @@ To ensure a consistent analytical sample:
 - Because IMDb assigns multiple genres per title, only the first listed genre is used as the primary genre classification to maintain one observation per film.
 - Genres are further grouped into the top 10 most frequent categories, with remaining genres combined into an "Other" category.
 
-After cleaning and filtering, the final dataset contains 299,335 unique movie observations.
+After cleaning and filtering, the final dataset contains 299,473 unique movie observations.
 
 ### Variables
 - Dependent variable: averageRating — continuous IMDb user rating (1–10), representing audience evaluation.
