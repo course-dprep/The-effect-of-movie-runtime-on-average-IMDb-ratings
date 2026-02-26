@@ -125,6 +125,9 @@ The script will automatically:
 - Perform data exploration and generate all tables and plots
 No manual data preprocessing is required.
 
+
+Test
+
 ## About 
 This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
 
