@@ -11,6 +11,8 @@ date: "2026-02-19"
 library(readr)
 library(dplyr)
 library(tidyr)
+library(tidyverse)
+library(data.table)
 
 dir.create("data", showWarnings = FALSE)
 ```
@@ -18,6 +20,21 @@ dir.create("data", showWarnings = FALSE)
 # =========================================================
 # DATA PREPARATION
 # =========================================================
+
+# ---------------------------------------------------------
+# Helper function: safe download with error handling
+# ---------------------------------------------------------
+```{r}
+safe_download <- function(url, dest) {
+  tryCatch(
+    download.file(url, destfile = dest, mode = "wb"),
+    error = function(e) {
+      message("Download failed: ", url)
+      message("Reason: ", e$message)
+    }
+  )
+}
+```
 
 # ---------------------------------------------------------
 # 1. Download and import ratings dataset
@@ -36,7 +53,6 @@ ratings <- read_tsv(dest_ratings, show_col_types = FALSE)
 # ---------------------------------------------------------
 # 2. Download and import basics dataset
 # ---------------------------------------------------------
-
 ```{r}
 url_basics  <- "https://datasets.imdbws.com/title.basics.tsv.gz"
 dest_basics <- "data/title.basics.tsv.gz"
@@ -75,7 +91,6 @@ movies_main <- movies %>%
     main_genre = sub(",.*", "", genres),  # take first genre before comma
     main_genre = as.factor(main_genre)
   )
-
 ```
 
 # ---------------------------------------------------------
@@ -129,6 +144,8 @@ movies_main_top <- movies_main_clean %>%
 
 table(movies_main_top$genre10)
 ```
+
+
 # =========================================================
 # DATA EXPLORATION
 # =========================================================
@@ -154,19 +171,32 @@ colSums(is.na(movies_main_clean[,
                                   "log_votes",
                                   "main_genre")]))
 ```
+
 # ---------------------------------------------------------
-# 3. Descriptive statistics
+# 3. Loop-Based descriptive analysis
+# ---------------------------------------------------------
+```{r}
+variables <- c("averageRating","runtimeMinutes","log_votes")
+
+for (v in variables) {
+  hist(movies_main_clean[[v]],
+       main = paste("Histogram of", v),
+       xlab = v)
+}
+```
+
+# ---------------------------------------------------------
+# 4. Descriptive statistics
 # ---------------------------------------------------------
 ```{r}
 summary(movies_main_clean$averageRating)
 summary(movies_main_clean$runtimeMinutes)
 summary(movies_main_clean$numVotes)
 summary(movies_main_clean$log_votes)
-
 ```
 
 # ---------------------------------------------------------
-# 4. numVotes vs log_votes distribution
+# 5. numVotes vs log_votes distribution
 # ---------------------------------------------------------
 ```{r}
 par(mfrow = c(1,2))
@@ -174,35 +204,43 @@ hist(movies_main_clean$numVotes,
      main = "Distribution of numVotes",
      xlab = "numVotes")
 ```
+
 ```{r}
 hist(movies_main_clean$log_votes,
      main = "Distribution of log(numVotes+1)",
      xlab = "log_votes")
 par(mfrow = c(1,1))
 ```
+
+
 # ---------------------------------------------------------
-# 5. Runtime distribution + extreme values
+# 6. Runtime distribution + extreme values
 # ---------------------------------------------------------
 ```{r}
-hist(movies_main_clean$runtimeMinutes,
-     main = "Distribution of runtimeMinutes",
-     xlab = "Runtime (minutes)")
-```
-```{r}
+variables <- c("averageRating","runtimeMinutes","log_votes")
+
+for (v in variables) {
+  hist(na.omit(movies_main_clean[[v]]),
+       main = paste("Histogram of", v),
+       xlab = v)
+}
+
+# Extra: runtime extreme values (blijft los, want geen histogram maar quantiles)
 quantile(movies_main_clean$runtimeMinutes,
          probs = c(.01, .05, .50, .95, .99),
          na.rm = TRUE)
 ```
 
-
 # ---------------------------------------------------------
-# 6. Genre distribution
+# 7. Genre distribution
 # ---------------------------------------------------------
 ```{r}
 sort(table(movies_main_clean$main_genre), decreasing = TRUE)
 ```
+
+
 # ---------------------------------------------------------
-# 7. Genre distribution after grouping
+# 8. Genre distribution after grouping
 # ---------------------------------------------------------
 ```{r}
 if (exists("movies_main_top")) {
@@ -212,7 +250,7 @@ if (exists("movies_main_top")) {
 
 ```
 # ---------------------------------------------------------
-# 8. Focus on Comedy
+# 9. Focus on Comedy
 # ---------------------------------------------------------
 
 ```{r}
@@ -232,7 +270,7 @@ plot(comedy_only$runtimeMinutes,
 
 ```
 # ---------------------------------------------------------
-# 9. Effect of Runtime on Average IMDb Rating
+# 10. Effect of Runtime on Average IMDb Rating
 # ---------------------------------------------------------
 ```{r}
 plot(movies_main_clean$runtimeMinutes,
@@ -250,7 +288,7 @@ abline(lm(averageRating ~ runtimeMinutes,
 ```
 
 # ---------------------------------------------------------
-# 10. Control Variable Check: Votes vs Rating
+# 11. Control Variable Check: Votes vs Rating
 # ---------------------------------------------------------
 ```{r}
 cor(movies_main_clean$log_votes,
@@ -267,7 +305,7 @@ plot(movies_main_clean$log_votes,
 ```
 
 # ---------------------------------------------------------
-# 11. Compare ratings across genres
+# 12. Compare ratings across genres
 # ---------------------------------------------------------
 ```{r}
 if (exists("movies_main_top")) {
@@ -278,10 +316,10 @@ if (exists("movies_main_top")) {
           main = "Average rating by genre (Top 10 + Other)",
           ylab = "Average rating")
 }
-
 ```
+
 # ---------------------------------------------------------
-# 12. Simple correlations
+# 13. Simple correlations
 # ---------------------------------------------------------
 
 ```{r}
@@ -292,5 +330,4 @@ cor(movies_main_clean$runtimeMinutes,
 cor(movies_main_clean$log_votes,
     movies_main_clean$averageRating,
     use = "complete.obs")
-
 ```
