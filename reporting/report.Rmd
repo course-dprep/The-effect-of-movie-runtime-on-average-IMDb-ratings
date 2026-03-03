@@ -91,8 +91,16 @@ movies_main_clean <- movies_main %>%
   filter(
     !is.na(runtimeMinutes),
     !is.na(averageRating),
-    !is.na(numVotes)
+    !is.na(numVotes),
   )
+```
+
+# Filter runtime outliers (based on inspection of quantiles)
+
+```{r}
+movies_main_clean <- movies_main_clean %>%
+  filter(runtimeMinutes >= 40,
+         runtimeMinutes <= 240)
 ```
 
 # ---------------------------------------------------------
