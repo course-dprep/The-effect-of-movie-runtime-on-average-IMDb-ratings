@@ -1,3 +1,6 @@
 # Use this file to keep certain files from being versioned (covered in the GitHub part of the course).
 
 .DS_Store
+.Rproj.user
+.Rhistory
+data/*.tsv.gz
