@@ -41,20 +41,13 @@ To answer the research question, we use linear regression analysis. The dependen
 
 Linear regression analysis is the most suitable method to answer the research question, because the dependent variable (average rating) and independent variable (runtime) are both continuous. 
 
-## Preview of Findings 
-- Describe the gist of your findings (save the details for the final paper!)
-  
+## Preview of Findings  
 Preliminary analysis show that the relationship between the average rating and runtime is statistically very weak. The data shows that the correlation between the average rating and runtime is approximately 0.008, which is very close to zero and indicates that movies with a longer runtime do not systematically receive a higher rating. You can also see this in the scatterplot (page 13). The red line has a slight positive trend, but the data points (the small black dots) are very dispersed around the same amount of runtime. This shows unexplained variation between ratings across movies with quite similar runtime. This indicates that runtime alone is not a strong predictor of the average rating of a movie. 
 The correlation between the number of votes (log-transformed) and the average rating is approximately -0.08, which indicates a very small negative correlation. This could indicate that movies with a lot of votes tend to receive more critical evaluations, possibly due to the larger audience for reviews. 
 As shown in the boxplot (page 15), genre category comparisons have a lot of variations in average ratings. For example, the average rating of the genres biography and documentary are quite higher than the average rating of the genre horror. This indicates that genre may moderate in the relationship between the average rating and runtime. 
 
-- How are the findings/end product of the project deployed?
-
 The findings of the research are presented in a structured R Markdown report. In the R Markdown report, the complete data analysis is documented step by step. This report includes data preparation, statistical analysis and visualizations such as scatter plots and box plots. 
 Furthermore, the workflow is completely reproducible. The IMDb data can be downloaded online automatically and analyzed through a script. This allows other researchers to easily replicate the study or extend the analysis using different selection criteria (for example, the research with focus on one specific genre).
-
-
-- Explain the relevance of these findings/product.
 
 The research findings show that runtime on its own is a very weak predictor of the average rating. This is relevant because it challenges the assumption that longer movies tend to receive higher ratings (Moon et al., 2009). This indicates that runtime is not necessarily a reliable strategy for achieving higher ratings in movies. Moreover, the research shows that genre category comparisons have a lot of variations in average ratings. This means that statements about an ‘ideal movie length’ can generally be misleading, and choices should possibly be approached genre-specific. 
 
@@ -124,10 +117,6 @@ The script will automatically:
 - Create the log-transformed variable log_votes
 - Perform data exploration and generate all tables and plots
 No manual data preprocessing is required.
-
-
-Test
-Test 2.0
 
 
 ## About 
