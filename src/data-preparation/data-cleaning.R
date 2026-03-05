@@ -9,8 +9,10 @@ library(tidyr)
 ratings <- read_tsv("data/title.ratings.tsv.gz", show_col_types = FALSE)
 basics  <- read_tsv("data/title.basics.tsv.gz", na = "\\N", show_col_types = FALSE)
 
-# Merge + keep only movies
+# Merge + keep only movies + ensure duplication is 0 
 combined_dataset <- full_join(basics, ratings, by = "tconst")
+
+stopifnot(sum(duplicated(combined_dataset$tconst)) == 0)
 
 movies_main_clean <- combined_dataset %>%
   filter(titleType == "movie") %>%
