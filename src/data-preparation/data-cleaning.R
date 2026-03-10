@@ -5,38 +5,35 @@ library(readr)
 library(dplyr)
 library(tidyr)
 
-# Load raw data (downloaded by data/download-data.R)
-ratings <- read_tsv("data/title.ratings.tsv.gz", show_col_types = FALSE)
-basics  <- read_tsv("data/title.basics.tsv.gz", na = "\\N", show_col_types = FALSE)
+# ---------------------------------------------------------
+# 5. Create main genre (first listed genre only)
+#    This avoids duplicate observations caused by
+#    multiple genres per film.
+# ---------------------------------------------------------
 
-# Merge + keep only movies + ensure duplication is 0 
-combined_dataset <- full_join(basics, ratings, by = "tconst")
-
-stopifnot(sum(duplicated(combined_dataset$tconst)) == 0)
-
-movies_main_clean <- combined_dataset %>%
-  filter(titleType == "movie") %>%
+movies_main <- movies %>%
   filter(!is.na(genres)) %>%
   mutate(
-    main_genre = sub(",.*", "", genres),
-    main_genre = as.factor(main_genre),
+    main_genre = sub(",.*", "", genres),  # take first genre before comma
+    main_genre = as.factor(main_genre)
+  )
+
+
+# ---------------------------------------------------------
+# 6. Clean variables and prepare for analysis
+# ---------------------------------------------------------
+
+movies_main_clean <- movies_main %>%
+  mutate(
     runtimeMinutes = as.numeric(runtimeMinutes),
     log_votes = log(numVotes + 1)
   ) %>%
   filter(
     !is.na(runtimeMinutes),
     !is.na(averageRating),
-    !is.na(numVotes)
+    !is.na(numVotes),
   )
 
-# Top 10 genres + Other
-top_genres <- names(sort(table(movies_main_clean$main_genre), decreasing = TRUE))[1:10]
-
-movies_main_top <- movies_main_clean %>%
-  mutate(
-    genre10 = ifelse(main_genre %in% top_genres, as.character(main_genre), "Other"),
-    genre10 = as.factor(genre10)
-  )
 
 # Save cleaned data for later scripts
 saveRDS(movies_main_top, "data/imdb_movies_clean.rds")
