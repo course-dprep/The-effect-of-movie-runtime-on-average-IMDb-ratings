@@ -1,22 +1,8 @@
 # In this directory, you will keep all source code related to your analysis.
 
----
-title: "The-effect-of-movie-runtime-on-average-IMDb-ratings"
-output:
-  pdf_document: default
-  html_document: default
-date: "2026-02-18"
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r}
 library(readr)
 library(dplyr)
 library(tidyr)
-```
 
 # =========================================================
 # DATA ANALYSIS: LINEAR REGRESSION
@@ -83,7 +69,6 @@ anova(model_1, model_2, model_3)
 # ---------------------------------------------------------
 # 5. Visualization for interpretation
 # ---------------------------------------------------------
-
 
 # Diagnostic plots for the full model
 par(mfrow = c(2, 2))
