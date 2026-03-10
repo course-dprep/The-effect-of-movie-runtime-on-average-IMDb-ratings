@@ -48,5 +48,34 @@ movies_main_clean <- movies_main %>%
   )
 
 
+# Filter runtime outliers (based on inspection of quantiles)
+movies_main_clean <- movies_main_clean %>%
+  filter(runtimeMinutes >= 40,
+         runtimeMinutes <= 240)
+
+# ---------------------------------------------------------
+# 7. Inspect dataset size and genre distribution
+# ---------------------------------------------------------
+nrow(movies_main_clean)
+sort(table(movies_main_clean$main_genre), decreasing = TRUE)
+
+
+# ---------------------------------------------------------
+# 8. Reduce genres to Top 10 + "Other"
+# ---------------------------------------------------------
+top_genres <- names(sort(table(movies_main_clean$main_genre), decreasing = TRUE))[1:10]
+
+movies_main_top <- movies_main_clean %>%
+  mutate(
+    genre10 = ifelse(main_genre %in% top_genres, 
+                     as.character(main_genre), 
+                     "Other"),
+    genre10 = as.factor(genre10)
+  )
+
+table(movies_main_top$genre10)
+
+
+
 # Save cleaned data for later scripts
 saveRDS(movies_main_top, "data/imdb_movies_clean.rds")
