@@ -31,4 +31,4 @@ dest_basics <- "data/title.basics.tsv.gz"
 download.file(url_basics, destfile = dest_basics, mode = "wb")
 
 basics <- read_tsv(dest_basics, na = "\\N", show_col_types = FALSE)
-``
+
