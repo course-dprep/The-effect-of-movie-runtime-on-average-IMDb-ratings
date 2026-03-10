@@ -1,0 +1,5 @@
+DATA = data
+SRC = src/data-preparation
+
+$(DATA)/title.ratings.tsv.gz $(DATA)/title.basics.tsv.gz: $(DATA)/download-data.R
+	Rscript $(DATA)/download-data.R
