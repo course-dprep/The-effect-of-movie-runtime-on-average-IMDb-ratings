@@ -3,4 +3,6 @@
 .DS_Store
 .Rproj.user
 .Rhistory
-data/*.tsv.gz
+data/
+*.tsv.gz
+*.rds
