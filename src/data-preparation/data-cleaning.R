@@ -75,7 +75,8 @@ movies_main_top <- movies_main_clean %>%
 
 table(movies_main_top$genre10)
 
-
-
-# Save cleaned data for later scripts
-saveRDS(movies_main_top, "data/imdb_movies_clean.rds")
+# ---------------------------------------------------------
+# 9. Save cleaned data
+# ---------------------------------------------------------
+write.csv(movies_main_clean, "gen/temp/movies_main_clean.csv", row.names = FALSE)
+saveRDS(movies_main_clean, "gen/temp/movies_main_clean.rds")
