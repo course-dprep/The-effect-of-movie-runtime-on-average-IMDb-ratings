@@ -6,6 +6,19 @@ library(dplyr)
 library(tidyr)
 
 # ---------------------------------------------------------
+# 3. Merge datasets using tconst
+# ---------------------------------------------------------
+combined_dataset <- full_join(basics, ratings, by = "tconst")
+
+
+# ---------------------------------------------------------
+# 4. Keep only movies
+# ---------------------------------------------------------
+movies <- combined_dataset %>%
+  filter(titleType == "movie")
+
+
+# ---------------------------------------------------------
 # 5. Create main genre (first listed genre only)
 #    This avoids duplicate observations caused by
 #    multiple genres per film.
