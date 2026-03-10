@@ -16,278 +16,107 @@ knitr::opts_chunk$set(echo = TRUE)
 library(readr)
 library(dplyr)
 library(tidyr)
-
-dir.create("data", showWarnings = FALSE)
 ```
 
 # =========================================================
-# DATA PREPARATION
+# DATA ANALYSIS: LINEAR REGRESSION
 # =========================================================
 
 # ---------------------------------------------------------
-# 1. Download and import ratings dataset
-#    Contains: tconst, averageRating, numVotes
+# 1. Load prepared data
 # ---------------------------------------------------------
 
-```{r}
-url_ratings  <- "https://datasets.imdbws.com/title.ratings.tsv.gz"
-dest_ratings <- "data/title.ratings.tsv.gz"
-download.file(url_ratings, destfile = dest_ratings, mode = "wb")
-
-ratings <- read_tsv(dest_ratings, show_col_types = FALSE)
-
-```
+movies_main_top <- readRDS("........")
 
 # ---------------------------------------------------------
-# 2. Download and import basics dataset
+# 2. Correlations
 # ---------------------------------------------------------
 
-```{r}
-url_basics  <- "https://datasets.imdbws.com/title.basics.tsv.gz"
-dest_basics <- "data/title.basics.tsv.gz"
-download.file(url_basics, destfile = dest_basics, mode = "wb")
+cor_runtime_rating <- cor(
+  movies$runtimeMinutes,
+  movies$averageRating,
+  use = "complete.obs"
+)
 
-basics <- read_tsv(dest_basics, na = "\\N", show_col_types = FALSE)
-```
+cor_votes_rating <- cor(
+  movies$log_votes,
+  movies$averageRating,
+  use = "complete.obs"
+)
 
-# ---------------------------------------------------------
-# 3. Merge datasets using tconst
-# ---------------------------------------------------------
-
-```{r}
-combined_dataset <- full_join(basics, ratings, by = "tconst")
-```
-
-# ---------------------------------------------------------
-# 4. Keep only movies
-# ---------------------------------------------------------
-
-```{r}
-movies <- combined_dataset %>%
-  filter(titleType == "movie")
-```
+print(cor_runtime_rating)
+print(cor_votes_rating)
 
 # ---------------------------------------------------------
-# 5. Create main genre (first listed genre only)
-#    This avoids duplicate observations caused by
-#    multiple genres per film.
+# 3. Linear regression models
 # ---------------------------------------------------------
 
-```{r}
-movies_main <- movies %>%
-  filter(!is.na(genres)) %>%
-  mutate(
-    main_genre = sub(",.*", "", genres),  # take first genre before comma
-    main_genre = as.factor(main_genre)
-  )
+# Model 1: effect of runtime on rating
+model_1 <- lm(
+  averageRating ~ runtimeMinutes,
+  data = movies
+)
 
-```
+# Model 2: add control variable
+model_2 <- lm(
+  averageRating ~ runtimeMinutes + log_votes,
+  data = movies
+)
 
-# ---------------------------------------------------------
-# 6. Clean variables and prepare for analysis
-# ---------------------------------------------------------
+# Model 3: full model with moderator and control
+model_3 <- lm(
+  averageRating ~ runtimeMinutes * genre10 + log_votes,
+  data = movies
+)
 
-```{r}
-movies_main_clean <- movies_main %>%
-  mutate(
-    runtimeMinutes = as.numeric(runtimeMinutes),
-    log_votes = log(numVotes + 1)
-  ) %>%
-  filter(
-    !is.na(runtimeMinutes),
-    !is.na(averageRating),
-    !is.na(numVotes)
-  )
-```
+# Show model results
+summary(model_1)
+summary(model_2)
+summary(model_3)
 
 # ---------------------------------------------------------
-# 7. Inspect dataset size and genre distribution
+# 4. Comparing modles
 # ---------------------------------------------------------
 
-```{r}
-nrow(movies_main_clean)
-sort(table(movies_main_clean$main_genre), decreasing = TRUE)
-```
+anova(model_1, model_2, model_3)
 
 # ---------------------------------------------------------
-# 8. Reduce genres to Top 10 + "Other"
+# 5. Visualization for interpretation
 # ---------------------------------------------------------
 
-```{r}
-top_genres <- names(sort(table(movies_main_clean$main_genre), decreasing = TRUE))[1:10]
 
-movies_main_top <- movies_main_clean %>%
-  mutate(
-    genre10 = ifelse(main_genre %in% top_genres, 
-                     as.character(main_genre), 
-                     "Other"),
-    genre10 = as.factor(genre10)
-  )
+# Diagnostic plots for the full model
+par(mfrow = c(2, 2))
+plot(model_3)
 
-table(movies_main_top$genre10)
-```
-# =========================================================
-# DATA EXPLORATION
-# =========================================================
+# Extra visualizations for interpretation
+par(mfrow = c(1, 1))
 
-# ---------------------------------------------------------
-# 1. General overview
-# ---------------------------------------------------------
+plot(
+  movies$runtimeMinutes,
+  movies$averageRating,
+  pch = 20,
+  cex = 0.4,
+  xlab = "Runtime (minutes)",
+  ylab = "Average Rating",
+  main = "Runtime vs Average IMDb Rating"
+)
 
-```{r}
-dim(movies_main_clean)
-glimpse(movies_main_clean)
-summary(movies_main_clean)
-```
+abline(
+  lm(averageRating ~ runtimeMinutes, data = movies),
+  col = "red",
+  lwd = 2
+)
 
-# ---------------------------------------------------------
-# 2. Missing values check
-# ---------------------------------------------------------
-```{r}
-colSums(is.na(movies_main_clean[, 
-                                c("averageRating",
-                                  "runtimeMinutes",
-                                  "numVotes",
-                                  "log_votes",
-                                  "main_genre")]))
-```
-# ---------------------------------------------------------
-# 3. Descriptive statistics
-# ---------------------------------------------------------
-```{r}
-summary(movies_main_clean$averageRating)
-summary(movies_main_clean$runtimeMinutes)
-summary(movies_main_clean$numVotes)
-summary(movies_main_clean$log_votes)
-
-```
-
-# ---------------------------------------------------------
-# 4. numVotes vs log_votes distribution
-# ---------------------------------------------------------
-```{r}
-par(mfrow = c(1,2))
-hist(movies_main_clean$numVotes,
-     main = "Distribution of numVotes",
-     xlab = "numVotes")
-```
-```{r}
-hist(movies_main_clean$log_votes,
-     main = "Distribution of log(numVotes+1)",
-     xlab = "log_votes")
-par(mfrow = c(1,1))
-```
-# ---------------------------------------------------------
-# 5. Runtime distribution + extreme values
-# ---------------------------------------------------------
-```{r}
-hist(movies_main_clean$runtimeMinutes,
-     main = "Distribution of runtimeMinutes",
-     xlab = "Runtime (minutes)")
-```
-```{r}
-quantile(movies_main_clean$runtimeMinutes,
-         probs = c(.01, .05, .50, .95, .99),
-         na.rm = TRUE)
-```
+boxplot(
+  averageRating ~ genre10,
+  data = movies,
+  outline = FALSE,
+  las = 2,
+  main = "Average Rating by Genre (Top 10 + Other)",
+  ylab = "Average Rating"
+)
 
 
-# ---------------------------------------------------------
-# 6. Genre distribution
-# ---------------------------------------------------------
-```{r}
-sort(table(movies_main_clean$main_genre), decreasing = TRUE)
-```
-# ---------------------------------------------------------
-# 7. Genre distribution after grouping
-# ---------------------------------------------------------
-```{r}
-if (exists("movies_main_top")) {
-  table(movies_main_top$genre10)
-  prop.table(table(movies_main_top$genre10))
-}
 
-```
-# ---------------------------------------------------------
-# 8. Focus on Comedy
-# ---------------------------------------------------------
 
-```{r}
-comedy_only <- movies_main_clean %>%
-  filter(main_genre == "Comedy")
-
-dim(comedy_only)
-summary(comedy_only$averageRating)
-summary(comedy_only$runtimeMinutes)
-summary(comedy_only$log_votes)
-
-plot(comedy_only$runtimeMinutes,
-     comedy_only$averageRating,
-     xlab = "Runtime (minutes)",
-     ylab = "Average rating",
-     main = "Comedy: runtime vs rating")
-
-```
-# ---------------------------------------------------------
-# 9. Effect of Runtime on Average IMDb Rating
-# ---------------------------------------------------------
-```{r}
-plot(movies_main_clean$runtimeMinutes,
-     movies_main_clean$averageRating,
-     pch = 20,
-     cex = 0.4,
-     xlab = "Runtime (minutes)",
-     ylab = "Average Rating",
-     main = "Runtime vs Average IMDb Rating")
-
-abline(lm(averageRating ~ runtimeMinutes,
-          data = movies_main_clean),
-       col = "red",
-       lwd = 2)
-```
-
-# ---------------------------------------------------------
-# 10. Control Variable Check: Votes vs Rating
-# ---------------------------------------------------------
-```{r}
-cor(movies_main_clean$log_votes,
-    movies_main_clean$averageRating,
-    use = "complete.obs")
-
-plot(movies_main_clean$log_votes,
-     movies_main_clean$averageRating,
-     pch = 20,
-     cex = 0.4,
-     xlab = "Log(Number of Votes)",
-     ylab = "Average Rating",
-     main = "Votes vs Rating")
-```
-
-# ---------------------------------------------------------
-# 11. Compare ratings across genres
-# ---------------------------------------------------------
-```{r}
-if (exists("movies_main_top")) {
-  boxplot(averageRating ~ genre10,
-          data = movies_main_top,
-          outline = FALSE,
-          las = 2,
-          main = "Average rating by genre (Top 10 + Other)",
-          ylab = "Average rating")
-}
-
-```
-# ---------------------------------------------------------
-# 12. Simple correlations
-# ---------------------------------------------------------
-
-```{r}
-cor(movies_main_clean$runtimeMinutes,
-    movies_main_clean$averageRating,
-    use = "complete.obs")
-
-cor(movies_main_clean$log_votes,
-    movies_main_clean$averageRating,
-    use = "complete.obs")
-
-```
