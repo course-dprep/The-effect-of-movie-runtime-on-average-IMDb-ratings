@@ -8,11 +8,11 @@ library(tidyr)
 # ---------------------------------------------------------
 # 2. Load raw data
 # ---------------------------------------------------------
-basics  <- read_tsv("data/title.basics.tsv.gz",
+basics  <- read_tsv("../../data/title.basics.tsv.gz",
                     na = "\\N",
                     show_col_types = FALSE)
 
-ratings <- read_tsv("data/title.ratings.tsv.gz",
+ratings <- read_tsv("../../data/title.ratings.tsv.gz",
                     show_col_types = FALSE)
 
 # ---------------------------------------------------------
@@ -88,5 +88,5 @@ table(movies_main_top$genre10)
 # ---------------------------------------------------------
 # 9. Save cleaned data
 # ---------------------------------------------------------
-write.csv(movies_main_clean, "gen/temp/movies_main_clean.csv", row.names = FALSE)
-saveRDS(movies_main_clean, "gen/temp/movies_main_clean.rds")
+write.csv(movies_main_top, "../../gen/temp/movies_main_top.csv", row.names = FALSE)
+saveRDS(movies_main_top, "../../gen/temp/movies_main_top.rds")

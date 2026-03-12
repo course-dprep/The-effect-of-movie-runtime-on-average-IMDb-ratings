@@ -1,7 +1,11 @@
-# This makefile will be used to automate the
-# different steps in your project.
-DATA = data
-SRC = src/data-preparation
+all: data-preparation analysis
 
-$(DATA)/title.ratings.tsv.gz $(DATA)/title.basics.tsv.gz: $(DATA)/download-data.R
-	Rscript $(DATA)/download-data.R
+data-preparation:
+	make -C src/data-preparation
+
+analysis: data-preparation
+	make -C src/analysis
+
+clean:
+	R -e "unlink('data', recursive = TRUE)"
+	R -e "unlink('gen', recursive = TRUE)"

@@ -1,6 +1,12 @@
-TEMP = gen/temp
-DATA = data
-SRC = src/data-preparation
+DATA = ../../data
+TEMP = ../../gen/temp
 
-$(TEMP)/movies_main_clean.csv: $(DATA)/title.ratings.tsv.gz $(DATA)/title.basics.tsv.gz $(SRC)/data-cleaning.R
-	Rscript $(SRC)/data-cleaning.R
+all: $(TEMP)/movies_main_top.rds
+
+$(DATA)/title.basics.tsv.gz: download-data.R
+	R -e "dir.create('$(DATA)', recursive = TRUE, showWarnings = FALSE)"
+	Rscript download-data.R
+
+$(TEMP)/movies_main_top.rds $(TEMP)/movies_main_top.csv: data-cleaning.R $(DATA)/title.ratings.tsv.gz $(DATA)/title.basics.tsv.gz
+	R -e "dir.create('$(TEMP)', recursive = TRUE, showWarnings = FALSE)"
+	Rscript data-cleaning.R
