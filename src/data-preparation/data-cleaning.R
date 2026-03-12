@@ -6,6 +6,16 @@ library(dplyr)
 library(tidyr)
 
 # ---------------------------------------------------------
+# 2. Load raw data
+# ---------------------------------------------------------
+basics  <- read_tsv("data/title.basics.tsv.gz",
+                    na = "\\N",
+                    show_col_types = FALSE)
+
+ratings <- read_tsv("data/title.ratings.tsv.gz",
+                    show_col_types = FALSE)
+
+# ---------------------------------------------------------
 # 3. Merge datasets using tconst
 # ---------------------------------------------------------
 combined_dataset <- full_join(basics, ratings, by = "tconst")
