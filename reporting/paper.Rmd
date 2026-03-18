@@ -163,7 +163,11 @@ Open the R Markdown file in RStudio.
 - Click “Knit” to render the document.
 - The script will automatically:
 
-Create a data/ folder
+- Open the R Markdown file in RStudio.
+- Make sure all required packages are installed.
+- Click “Knit” to render the document.
+
+The script will automatically:
 - Download the IMDb datasets (title.basics.tsv.gz and title.ratings.tsv.gz)
 - Merge the datasets using tconst
 - Filter the data to include only movies
