@@ -5,6 +5,9 @@ library(readr)
 library(dplyr)
 library(tidyr)
 
+dir.create("../../gen/temp", recursive = TRUE, showWarnings = FALSE)
+dir.create("../../gen/output", recursive = TRUE, showWarnings = FALSE)
+
 # ---------------------------------------------------------
 # 2. Load raw data
 # ---------------------------------------------------------
@@ -49,14 +52,15 @@ movies_main <- movies %>%
 movies_main_clean <- movies_main %>%
   mutate(
     runtimeMinutes = as.numeric(runtimeMinutes),
-    log_votes = log(numVotes + 1)
+    log_votes = log(numVotes + 1),
+    startYear = as.numeric(startYear)
   ) %>%
   filter(
     !is.na(runtimeMinutes),
     !is.na(averageRating),
     !is.na(numVotes),
+    !is.na(startYear)
   )
-
 
 # Filter runtime outliers (based on inspection of quantiles)
 movies_main_clean <- movies_main_clean %>%

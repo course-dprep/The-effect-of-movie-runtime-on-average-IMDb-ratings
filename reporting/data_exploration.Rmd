@@ -101,12 +101,14 @@ movies_main <- movies %>%
 movies_main_clean <- movies_main %>%
   mutate(
     runtimeMinutes = as.numeric(runtimeMinutes),
-    log_votes = log(numVotes + 1)
+    log_votes = log(numVotes + 1),
+    startYear = as.numeric(startYear)
   ) %>%
   filter(
     !is.na(runtimeMinutes),
     !is.na(averageRating),
     !is.na(numVotes),
+    !is.na(startYear)                  
   )
 ```
 
@@ -169,14 +171,15 @@ colSums(is.na(movies_main_clean[,
                                   "runtimeMinutes",
                                   "numVotes",
                                   "log_votes",
-                                  "main_genre")]))
+                                  "main_genre",
+                                  "startYear")]))
 ```
 
 # ---------------------------------------------------------
 # 3. Loop-Based descriptive analysis
 # ---------------------------------------------------------
 ```{r}
-variables <- c("averageRating","runtimeMinutes","log_votes")
+variables <- c("averageRating","runtimeMinutes","log_votes","startYear")
 
 for (v in variables) {
   hist(movies_main_clean[[v]],
@@ -193,6 +196,7 @@ summary(movies_main_clean$averageRating)
 summary(movies_main_clean$runtimeMinutes)
 summary(movies_main_clean$numVotes)
 summary(movies_main_clean$log_votes)
+summary(movies_main_clean$startYear)
 ```
 
 # ---------------------------------------------------------
@@ -305,7 +309,29 @@ plot(movies_main_clean$log_votes,
 ```
 
 # ---------------------------------------------------------
-# 12. Compare ratings across genres
+# 12. Control Variable Check: Release year vs Rating
+# ---------------------------------------------------------
+```{r}
+cor(movies_main_clean$startYear,
+    movies_main_clean$averageRating,
+    use = "complete.obs")
+
+plot(movies_main_clean$startYear,
+     movies_main_clean$averageRating,
+     pch = 20,
+     cex = 0.4,
+     xlab = "Release Year",
+     ylab = "Average Rating",
+     main = "Release Year vs Rating")
+
+abline(lm(averageRating ~ startYear,
+          data = movies_main_clean),
+       col = "blue",
+       lwd = 2)
+```
+
+# ---------------------------------------------------------
+# 13. Compare ratings across genres
 # ---------------------------------------------------------
 ```{r}
 if (exists("movies_main_top")) {
@@ -319,7 +345,7 @@ if (exists("movies_main_top")) {
 ```
 
 # ---------------------------------------------------------
-# 13. Simple correlations
+# 14. Simple correlations
 # ---------------------------------------------------------
 
 ```{r}
@@ -328,6 +354,10 @@ cor(movies_main_clean$runtimeMinutes,
     use = "complete.obs")
 
 cor(movies_main_clean$log_votes,
+    movies_main_clean$averageRating,
+    use = "complete.obs")
+
+cor(movies_main_clean$startYear,
     movies_main_clean$averageRating,
     use = "complete.obs")
 ```
