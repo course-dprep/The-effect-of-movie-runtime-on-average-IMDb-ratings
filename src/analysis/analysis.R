@@ -18,6 +18,7 @@ results_file <- "../../gen/output/analysis_results.txt"
 diagnostics_file <- "../../gen/output/model_diagnostics.pdf"
 scatter_file <- "../../gen/output/runtime_vs_rating.pdf"
 boxplot_file <- "../../gen/output/rating_by_genre.pdf"
+year_file <- "../../gen/output/year_vs_rating.pdf"
 
 # ---------------------------------------------------------
 # 2. Correlations
@@ -35,6 +36,12 @@ cor_votes_rating <- cor(
   use = "complete.obs"
 )
 
+cor_year_rating <- cor(               
+  movies_main_top$startYear,            
+  movies_main_top$averageRating,             
+  use = "complete.obs"              
+)
+
 # ---------------------------------------------------------
 # 3. Linear regression models
 # ---------------------------------------------------------
@@ -47,13 +54,13 @@ model_1 <- lm(
 
 # Model 2: add control variable
 model_2 <- lm(
-  averageRating ~ runtimeMinutes + log_votes,
+  averageRating ~ runtimeMinutes + log_votes + startYear, 
   data = movies_main_top
 )
 
 # Model 3: full model with moderator and control
 model_3 <- lm(
-  averageRating ~ runtimeMinutes * genre10 + log_votes,
+  averageRating ~ runtimeMinutes * genre10 + log_votes + startYear,
   data = movies_main_top
 )
 
@@ -70,6 +77,10 @@ cat("\n")
 cat("Correlation between log votes and average rating:\n")
 print(cor_votes_rating)
 cat("\n")
+
+cat("Correlation between release year and average rating:\n") 
+print(cor_year_rating)                                      
+cat("\n")    
 
 cat("Model 1 summary:\n")
 print(summary(model_1))
@@ -131,3 +142,25 @@ boxplot(
 )
 
 dev.off()
+
+pdf(year_file)
+par(mfrow = c(1, 1))
+
+plot(
+  movies_main_top$startYear,
+  movies_main_top$averageRating,
+  pch = 20,
+  cex = 0.4,
+  xlab = "Release Year",
+  ylab = "Average Rating",
+  main = "Release Year vs Average IMDb Rating"
+)
+
+abline(
+  lm(averageRating ~ startYear, data = movies_main_top),
+  col = "blue",
+  lwd = 2
+)
+
+dev.off()
+
