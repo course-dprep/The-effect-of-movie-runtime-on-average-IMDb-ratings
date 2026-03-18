@@ -6,6 +6,7 @@ gen/
 *.tsv.gz
 *.rds
 ~$*.xlsx
+*.csv
 
 # R extra
 .Rapp.history
