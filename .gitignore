@@ -1,10 +1,22 @@
 # Use this file to keep certain files from being versioned (covered in the GitHub part of the course).
 
-.DS_Store
-.Rproj.user
-.Rhistory
+# Project data and outputs
 data/
 gen/
 *.tsv.gz
 *.rds
 ~$*.xlsx
+
+# R extra
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user
+.Rhistory
+
+# Logs / tijdelijke files
+*.log
+*.tmp
+
+# Mac (extra zekerheid)
+.DS_Store
