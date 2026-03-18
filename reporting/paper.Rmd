@@ -1,0 +1,10 @@
+---
+title: "paper"
+output: pdf_document
+date: "2026-03-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
