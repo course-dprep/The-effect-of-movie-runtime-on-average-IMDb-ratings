@@ -12,13 +12,14 @@ library(tidyr)
 # 1. Load prepared data
 # ---------------------------------------------------------
 
-movies_main_top <- readRDS("../../gen/temp/movies_main_top.rds")
+movies_main_top <- read_csv("../../gen/temp/movies_main_top.csv", show_col_types = FALSE)
+movies_main_top$genre10 <- as.factor(movies_main_top$genre10)
 
 results_file <- "../../gen/output/analysis_results.txt"
-diagnostics_file <- "../../gen/output/model_diagnostics.pdf"
-scatter_file <- "../../gen/output/runtime_vs_rating.pdf"
-boxplot_file <- "../../gen/output/rating_by_genre.pdf"
-year_file <- "../../gen/output/year_vs_rating.pdf"
+diagnostics_file <- "../../gen/output/model_diagnostics.png"
+scatter_file <- "../../gen/output/runtime_vs_rating.png"
+boxplot_file <- "../../gen/output/rating_by_genre.png"
+year_file <- "../../gen/output/year_vs_rating.png"
 
 # ---------------------------------------------------------
 # 2. Correlations
@@ -104,12 +105,12 @@ sink()
 # 5. Save plots
 # ---------------------------------------------------------
 
-pdf(diagnostics_file)
+png(diagnostics_file)
 par(mfrow = c(2, 2))
 plot(model_3)
 dev.off()
 
-pdf(scatter_file)
+png(scatter_file)
 par(mfrow = c(1, 1))
 
 plot(
@@ -130,7 +131,7 @@ abline(
 
 dev.off()
 
-pdf(boxplot_file)
+png(boxplot_file)
 
 boxplot(
   averageRating ~ genre10,
@@ -143,7 +144,7 @@ boxplot(
 
 dev.off()
 
-pdf(year_file)
+png(year_file)
 par(mfrow = c(1, 1))
 
 plot(
