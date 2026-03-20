@@ -58,7 +58,7 @@ The control variable is the total number of IMDb user votes, measured by `numVot
 
 ## Control Variable: Release Year
 
-Release year of the movie is included as an additional control variable, measured by startYear. This variable captures the year in which the movie was released. The control variable is treated as a continuous variable and it accounts for potential temporal trends in iMDb ratings, as it may be that audience evaluation standards and rating behaviour may have changed over time. 
+Release year of the movie is included as an additional control variable, measured by `startYear`. This variable captures the year in which the movie was released. The control variable is treated as a continuous variable and it accounts for potential temporal trends in iMDb ratings, as it may be that audience evaluation standards and rating behaviour may have changed over time. 
 
 ## Moderator: Genre
 
