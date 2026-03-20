@@ -84,15 +84,25 @@ Three models are estimated. The first model includes runtime as a predictor of a
 
 Preliminary analysis shows that the relationship between runtime and average IMDb rating is statistically very weak. The correlation between runtime and average rating is approximately **0.008**, which is very close to zero and indicates that longer movies do not systematically receive higher ratings.
 
-This pattern is also visible in the scatterplot (see page 13), where the regression line shows only a slight positive trend and the data points are widely dispersed. This suggests substantial unexplained variation in ratings across movies with similar runtimes.
+This pattern is also visible in the scatterplot below, where the regression line shows only a slight positive trend and the data points are widely dispersed. This suggests substantial unexplained variation in ratings across movies with similar runtimes.
+
+![Runtime vs rating](../gen/output/runtime_vs_rating.png)
 
 In other words, runtime alone does not appear to be a strong predictor of the average IMDb rating of a movie.
 
 The correlation between the log-transformed number of votes and average rating is approximately **-0.08**, indicating a very small negative relationship. This may suggest that movies with many votes tend to receive slightly more critical evaluations, possibly because they are exposed to a broader and more diverse audience.
 
-The correlation between release year and average rating is approximately **0.051**, indicating a very small positive relationship. This suggets that more recently released movies tend to receive slightly higher ratings on average. 
+As shown in the boxplot below. Average ratings vary substantially across genres. For example, the average ratings of the genres *Biography* and *Documentary* are noticeably higher than those of *Horror*. This suggests that genre may play an important moderating role in the relationship between runtime and rating.
 
-As shown in the boxplot (see page 15), average ratings vary substantially across genres. For example, the average ratings of the genres *Biography* and *Documentary* are noticeably higher than those of *Horror*. This suggests that genre may play an important moderating role in the relationship between runtime and rating.
+![Rating by genre](../gen/output/rating_by_genre.png)
+
+Further analysis shows trends over time:
+
+![Year vs rating](../gen/output/year_vs_rating.png)
+
+Finally, we assess the validity of the regression model:
+
+![Model diagnostics](../gen/output/model_diagnostics.png)
 
 # =========================================================
 # REPRODUCIBILITY
