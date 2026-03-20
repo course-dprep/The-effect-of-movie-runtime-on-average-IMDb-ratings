@@ -88,6 +88,8 @@ In other words, runtime alone does not appear to be a strong predictor of the av
 
 The correlation between the log-transformed number of votes and average rating is approximately **-0.08**, indicating a very small negative relationship. This may suggest that movies with many votes tend to receive slightly more critical evaluations, possibly because they are exposed to a broader and more diverse audience.
 
+The correlation between release year and average rating is approximately **0.051**, indicating a very small positive relationship. This suggets that more recently released movies tend to receive slightly higher ratings on average. 
+
 As shown in the boxplot (see page 15), average ratings vary substantially across genres. For example, the average ratings of the genres *Biography* and *Documentary* are noticeably higher than those of *Horror*. This suggests that genre may play an important moderating role in the relationship between runtime and rating.
 
 # =========================================================
