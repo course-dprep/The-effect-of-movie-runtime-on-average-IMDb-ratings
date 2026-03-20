@@ -97,6 +97,7 @@ install.packages(c("readr", "dplyr", "tidyr", "rmarkdown", "knitr"))
 To reproduce the results of this workflow, follow these steps:
 
 **Step 1: Clone the repository**
+
 Using Command Prompt (Windows) or Terminal (Mac), clone the repository to your local machine:
 ```
 git clone https://github.com/course-dprep/The-effect-of-movie-runtime-on-average-IMDb-ratings.git
@@ -104,6 +105,7 @@ git clone https://github.com/course-dprep/The-effect-of-movie-runtime-on-average
 Once cloned, all necessary folders and scripts will be available locally.
 
 **Step 2: Download the IMDb datasets**
+
 Navigate to src/data-preparation/ and run download-data.R. This script automatically creates a data/ folder and downloads the required IMDb datasets:
 ```
 # Create data folder
@@ -118,6 +120,7 @@ download.file("https://datasets.imdbws.com/title.ratings.tsv.gz",
 ```
 
 **Step 3: Load packages and read data** 
+
 Run data-cleaning.R to load the required packages and import the downloaded datasets into RStudio:
 ```
 # Load required libraries
