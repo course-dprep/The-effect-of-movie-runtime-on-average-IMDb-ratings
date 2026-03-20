@@ -15,11 +15,11 @@ The data used in this study are obtained from the [official IMDb datasets](https
 - [title.basics.tsv.gz](https://datasets.imdbws.com/title.basics.tsv.gz)
 - [title.ratings.tsv.gz](https://datasets.imdbws.com/title.ratings.tsv.gz)
 
-These datasets are programmatically downloaded within the R script to ensure full reproducibility. The title.basics dataset contains 12,373,014 observations and includes information on title characteristics such as title type, runtime, and genre. The title.ratings dataset contains 1,650,357 observations and provides the average user rating and the number of user votes. The two datasets are merged using the unique identifier tconst.
+These datasets are programmatically downloaded within the R script to ensure full reproducibility. The title.basics dataset contains **12,373,014** observations and includes information on title characteristics such as title type, runtime, and genre. The title.ratings dataset contains **1,650,357** observations and provides the average user rating and the number of user votes. The two datasets are merged using the unique identifier tconst.
 
 To ensure a consistent and comparable sample, the analysis is restricted to movies (titleType = "movie"). Titles with missing values for runtime, average rating, or number of votes are excluded.
 
-Because IMDb assigns multiple genres to some titles, only the first listed genre is retained as the primary genre classification to avoid duplicate observations and ensure one observation per film. After cleaning and filtering, the final merged dataset contains 299,473 unique movie observations.
+Because IMDb assigns multiple genres to some titles, only the first listed genre is retained as the primary genre classification to avoid duplicate observations and ensure one observation per film. After cleaning and filtering, the final merged dataset contains **299,473** unique movie observations.
 
 ### Dependent variable - Rating (averageRating)
 The dependent variable is the average IMDb user rating of a movie, measured on a continuous scale from 1 to 10. This variable captures audience evaluation of the content.
