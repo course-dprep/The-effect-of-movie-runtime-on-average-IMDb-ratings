@@ -100,7 +100,7 @@ As shown in the boxplot (see page 15), average ratings vary substantially across
 
 The findings of this study are presented in a structured R Markdown report. In this report, the complete data analysis is documented step by step. The report includes data preparation, descriptive statistics, regression analysis, and visualisations such as scatterplots and boxplots.
 
-Furthermore, the workflow is fully reproducible. The IMDb data can be downloaded automatically and analysed through the script. This allows other researchers to replicate the study easily or extend the analysis using different selection criteria, such as focusing on a specific genre.
+Furthermore, the workflow is fully reproducible. The IMDb data can be downloaded automatically and analysed through the script. This allows other researchers to replicate the study easily or extend the analysis using different selection criteria, such as focusing on a specific genre. All scripts are version-controlled using Git and hosted in a public GitHub repository, ensuring full transparency and accessibility of the analytical workflow.
 
 # =========================================================
 # INTERPRETATION AND RELEVANCE
@@ -110,7 +110,7 @@ The findings suggest that runtime, on its own, is a very weak predictor of the a
 
 In addition, the results show substantial variation in ratings across genre categories. This implies that general statements about an “ideal movie length” may be misleading and that such conclusions should instead be approached in a genre-specific manner.
 
-Including the number of votes as a control variable is essential for a more accurate interpretation of the results. By controlling for the number of votes, the effect of runtime is estimated while accounting for variation in title visibility and popularity, which strengthens the internal validity of the analysis. Including the release year as an additional control variable further strenghtens the analysis by accounting for potential changes in rating behaviour over time.
+Including the number of votes as a control variable is essential for a more accurate interpretation of the results. By controlling for the number of votes, the effect of runtime is estimated while accounting for variation in title visibility and popularity, which strengthens the internal validity of the analysis. Including the release year as an additional control variable further strenghtens the analysis by accounting for potential changes in rating behaviour over time. Together, these two control variables help ensure that the estimated effect of runtime on average rating is not confounded by differences in movie popularity or the time period in which a film was released. 
 
 # =========================================================
 # REPOSITORY OVERVIEW
