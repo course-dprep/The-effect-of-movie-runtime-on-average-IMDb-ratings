@@ -74,19 +74,19 @@ imdb-runtime-rating/
 │       ├── download-data.R          # Automated download of IMDb datasets
 │       └── makefile                 # Pipeline automation for preparation step
 │
+├── .gitignore                       # Files excluded from version control
 ├── README.md                        # Project documentation and running instructions
-├── makefile                         # Master pipeline automation
-└── .gitignore                       # Files excluded from version control
+└── makefile                         # Master pipeline automation
 ```
 
 ## Dependencies 
 This project was developed using R (version 4.2.0 or higher) and RStudio (recommended). The following R packages are required to run the workflow:
 
-`readr` — for importing the IMDb .tsv.gz datasets
-`dplyr` — for data filtering, merging, and variable construction
-`tidyr` — for data reshaping and handling missing values
-`rmarkdown` — for rendering the R Markdown reports
-`knitr` — for document knitting and output generation
+- `readr` for importing the IMDb .tsv.gz datasets
+— `dplyr` for data filtering, merging, and variable construction
+— `tidyr` for data reshaping and handling missing values
+— `rmarkdown` for rendering the R Markdown reports
+- `knitr` for document knitting and output generation
 
 If any of these packages are not yet installed, they can be installed collectively using:
 ```
