@@ -80,12 +80,12 @@ imdb-runtime-rating/
 ```
 
 ## Dependencies 
-This project was developed using R (version 4.2.0 or higher) and RStudio (recommended). The following R packages are required to run the workflow:
+This project was developed using R (version 4.2.0 or higher) and RStudio. The following R packages are required to run the workflow:
 
 - `readr` for importing the IMDb .tsv.gz datasets
-— `dplyr` for data filtering, merging, and variable construction
-— `tidyr` for data reshaping and handling missing values
-— `rmarkdown` for rendering the R Markdown reports
+- `dplyr` for data filtering, merging, and variable construction
+- `tidyr` for data reshaping and handling missing values
+- `rmarkdown` for rendering the R Markdown reports
 - `knitr` for document knitting and output generation
 
 If any of these packages are not yet installed, they can be installed collectively using:
