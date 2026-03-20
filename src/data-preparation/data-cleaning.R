@@ -93,4 +93,3 @@ table(movies_main_top$genre10)
 # 9. Save cleaned data
 # ---------------------------------------------------------
 write.csv(movies_main_top, "../../gen/temp/movies_main_top.csv", row.names = FALSE)
-saveRDS(movies_main_top, "../../gen/temp/movies_main_top.rds")
