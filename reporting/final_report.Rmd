@@ -56,6 +56,10 @@ The independent variable is the runtime of a movie, measured by `runtimeMinutes`
 
 The control variable is the total number of IMDb user votes, measured by `numVotes`. This variable captures the popularity and visibility of a title. Because the distribution of vote counts is strongly skewed, the variable may be log-transformed in the regression analysis.
 
+## Control Variable: Release Year
+
+Release year of the movie is included as an additional control variable, measured by startYear. This variable captures the year in which the movie was released. The control variable is treated as a continuous variable and it accounts for potential temporal trends in iMDb ratings, as it may be that audience evaluation standards and rating behaviour may have changed over time. 
+
 ## Moderator: Genre
 
 Genre is included as a moderating variable to test whether the relationship between runtime and rating differs across movie types. Since IMDb allows multiple genres per title, only the first listed genre is used as the primary genre classification in order to preserve one observation per film.
@@ -66,7 +70,7 @@ Genre is treated as a categorical variable and operationalised using dummy varia
 # METHOD
 # =========================================================
 
-To answer the research question, this study uses linear regression analysis. The dependent variable is the average IMDb rating, runtime serves as the independent variable, and the number of votes is included as a control variable to account for differences in popularity and visibility across movies.
+To answer the research question, this study uses linear regression analysis. The dependent variable is the average IMDb rating and runtime serves as the independent variable. The number of votes is included as a control variable to account for differences in popularity and visibility across movies. The second control variable is the release year. This is included as a second control variable to account for temporal trends in rating behaviour. 
 
 To examine whether the relationship between runtime and average rating differs across genre categories, genre is included as a moderator. This makes it possible to test whether the effect of runtime on ratings varies across genres.
 
@@ -102,7 +106,7 @@ The findings suggest that runtime, on its own, is a very weak predictor of the a
 
 In addition, the results show substantial variation in ratings across genre categories. This implies that general statements about an “ideal movie length” may be misleading and that such conclusions should instead be approached in a genre-specific manner.
 
-Including the number of votes as a control variable is essential for a more accurate interpretation of the results. By controlling for the number of votes, the effect of runtime is estimated while accounting for variation in title visibility and popularity, which strengthens the internal validity of the analysis.
+Including the number of votes as a control variable is essential for a more accurate interpretation of the results. By controlling for the number of votes, the effect of runtime is estimated while accounting for variation in title visibility and popularity, which strengthens the internal validity of the analysis. Including the release year as an additional control variable further strenghtens the analysis by accounting for potential changes in rating behaviour over time.
 
 # =========================================================
 # REPOSITORY OVERVIEW
@@ -121,6 +125,7 @@ To ensure a consistent analytical sample, the following steps are applied:
 
 - The data are restricted to entries where `titleType = "movie"`.
 - Observations with missing runtime, rating, or vote counts are removed.
+- Observations with a missing release year are removed.
 - Because IMDb assigns multiple genres per title, only the first listed genre is used as the primary genre classification to maintain one observation per film.
 - Genres are further grouped into the ten most frequent categories, with remaining genres combined into an `"Other"` category.
 
@@ -131,6 +136,7 @@ After cleaning and filtering, the final dataset contains **299,473 unique movie 
 - **Dependent variable:** `averageRating` — continuous IMDb user rating from 1 to 10, representing audience evaluation.
 - **Independent variable:** `runtimeMinutes` — movie runtime in minutes.
 - **Control variable:** `numVotes` (log-transformed) — total number of user votes, capturing visibility and popularity.
+- **Control variable:** `startYear` - release year of the movie, capturing temporal trends in rating behaviour
 - **Moderator:** `genre` (main genre, top 10 + Other) — categorical variable used to test whether the runtime–rating relationship differs across genres.
 
 ## Repository Structure
