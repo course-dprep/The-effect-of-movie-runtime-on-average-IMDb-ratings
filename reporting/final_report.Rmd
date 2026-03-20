@@ -46,15 +46,15 @@ After cleaning and filtering, the final dataset contains **299,473 unique movie 
 
 ## Dependent Variable: Average Rating
 
-The dependent variable is the average IMDb user rating of a movie, measured by `averageRating`. It is recorded on a continuous scale from 1 to 10 and reflects audience evaluations of the content.
+The dependent variable is the average IMDb user rating of a movie, measured by `averageRating`. It is recorded on a continuous scale from 1 to 10 and reflects audience evaluations of the content. Higher values indicate more favourable audience evaluations, while lower values reflect more negative evaluations. 
 
 ## Independent Variable: Runtime
 
-The independent variable is the runtime of a movie, measured by `runtimeMinutes`. Runtime is expressed in minutes and treated as a continuous variable. It represents the total length of the content.
+The independent variable is the runtime of a movie, measured by `runtimeMinutes`. Runtime is expressed in minutes and treated as a continuous variable. It represents the total length of the content. To ensure a consistent and comparable sample, extreme runtime values are excluded from the analysis. Movies shorter than 40 minutes and longer than 240 minutes are removed, as these are unlikely to represent standard feature films.
 
 ## Control Variable: Number of Votes
 
-The control variable is the total number of IMDb user votes, measured by `numVotes`. This variable captures the popularity and visibility of a title. Because the distribution of vote counts is strongly skewed, the variable may be log-transformed in the regression analysis.
+The control variable is the total number of IMDb user votes, measured by `numVotes`. This variable captures the popularity and visibility of a title. Because the distribution of vote counts is strongly skewed, the variable may be log-transformed in the regression analysis. This log-transformation results in a more normally distributed variable suitable for linear regression. 
 
 ## Control Variable: Release Year
 
@@ -75,6 +75,8 @@ To answer the research question, this study uses linear regression analysis. The
 To examine whether the relationship between runtime and average rating differs across genre categories, genre is included as a moderator. This makes it possible to test whether the effect of runtime on ratings varies across genres.
 
 Linear regression is the most suitable method for this research question because both the dependent variable (`averageRating`) and the independent variable (`runtimeMinutes`) are continuous.
+
+Three models are estimated. The first model includes runtime as a predictor of average rating. The second model adds the two control variables: number of votes (log-transformed) and release year. This model controls for the effect of runtime from variation in popularity and temporal trends. The third model extends the second model by including genre as a moderator, allowing the effect of runtime to vary across genre categories. Model fit is compared across models using ANOVA.
 
 # =========================================================
 # PREVIEW OF FINDINGS
