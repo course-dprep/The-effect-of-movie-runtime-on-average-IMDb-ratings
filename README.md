@@ -30,11 +30,13 @@ The independent variable is the runtime of a movie, measured in minutes and trea
 ### Control variable - Number of votes (numVotes)
 This control variable measures the total number of IMDb user votes and captures the popularity and visibility of a title. Due to its strongly skewed distribution, it is log-transformed (log_votes = log(numVotes + 1)) prior to inclusion in the regression analysis, improving robustness against the influence of extreme values.
 
-### Additional control variable – Release year (startYear)
-Release year is included as an additional control variable to account for potential temporal trends in average IMDb ratings. It is measured as a continuous numeric variable representing the year of theatrical release. Correlation analysis (r = [insert value]) indicated a small relationship between release year and average rating, justifying its inclusion as a covariate to isolate the effect of runtime from historical rating patterns.
+### Control variable – Release year (startYear)
+Release year of the movie is included as an additional control variable, measured by `startYear`. This variable captures the year in which the movie was released. The control variable is treated as a continuous variable and it accounts for potential temporal trends in iMDb ratings, as it may be that audience evaluation standards and rating behaviour may have changed over time. 
 
 ### Moderator - Genre (genre)
-Genre is included as a moderating variable to test whether the relationship between runtime and average rating differs across content types. As IMDb assigns multiple genres per title, only the first-listed genre is retained as the primary genre classification (main_genre) to ensure one observation per film. Genre is treated as a categorical variable and operationalised using dummy variables in the regression model, with one genre serving as the reference category. To ensure sufficient cell sizes and interpretability, genres are grouped into the ten most frequent categories, with all remaining genres combined into an "Other" category, resulting in an eleven-level factor (genre10).
+Genre is included as a moderating variable to test whether the relationship between runtime and rating differs across movie types. Since IMDb allows multiple genres per title, only the first listed genre is used as the primary genre classification in order to preserve one observation per film.
+
+Genre is treated as a categorical variable and operationalised using dummy variables in the regression analysis, with one genre serving as the reference category. For interpretability, genres are grouped into the ten most frequent categories, with all remaining genres combined into an `"Other"` category.
 
 ## Method
 To answer the research question, linear regression analysis is employed, as both the dependent variable (average IMDb rating) and the independent variable (runtime in minutes) are continuous. Prior to analysis, the data were prepared through several cleaning steps. The two IMDb datasets (title.basics and title.ratings) were merged using the unique identifier tconst and filtered to retain only feature films (titleType = "movie"). Runtime outliers were removed by restricting observations to films between 40 and 240 minutes, based on inspection of the empirical quantile distribution. Titles with missing values on runtime, average rating, number of votes, or release year were excluded via listwise deletion, yielding a final analytic sample of 299,473 films.
@@ -44,14 +46,29 @@ To address the skewed distribution of the number of votes, this variable was log
 The moderation hypothesis is tested by including interaction terms between runtime and genre in the regression model, allowing the slope of runtime to vary across genre categories. Release year was additionally examined as a potential covariate through correlation analysis. All analyses were conducted in R (version 4.0 or higher).
 
 ## Preview of Findings  
-Preliminary analysis reveals that the relationship between average IMDb rating and runtime is statistically negligible. The Pearson correlation between the two variables is r = 0.008, indicating that films with longer runtimes do not systematically receive higher ratings. This is further illustrated by the scatterplot (page 13), in which the regression line shows only a marginal positive trend while data points exhibit considerable dispersion across rating values, reflecting substantial unexplained variance. These results suggest that runtime alone is a poor predictor of audience evaluation.
+Preliminary analysis shows that the relationship between runtime and average IMDb rating is statistically very weak. The Pearson correlation between runtime and average rating is approximately r = 0.008, which is very close to zero and indicates that longer movies do not systematically receive higher ratings. This challenges the assumption that longer films tend to be rated more favourably (Moon et al., 2009), suggesting that runtime is not a reliable determinant of perceived quality.
 
-The log-transformed number of votes shows a small negative correlation with average rating (r = −0.08), suggesting that films attracting larger audiences tend to receive marginally lower ratings on average. This may reflect a diversification effect, whereby wider viewership introduces more heterogeneous and critical evaluations.
+This pattern is also visible in the scatterplot (see gen/output/runtime_vs_rating.png), where the regression line shows only a slight positive trend and the data points are widely dispersed. This suggests substantial unexplained variation in ratings across movies with similar runtimes. In other words, runtime alone does not appear to be a strong predictor of the average IMDb rating of a movie.
 
-Genre comparisons, presented in the boxplot (page 15), reveal considerable variation in average ratings across categories. Genres such as Biography and Documentary consistently receive higher ratings than genres such as Horror, indicating systematic between-genre differences. This pattern provides preliminary evidence that genre may moderate the relationship between runtime and average rating.
+The correlation between the log-transformed number of votes and average rating is approximately -0.08, indicating a very small negative relationship. This may reflect a diversification effect, whereby wider viewership introduces more heterogeneous and critical evaluations. Including the number of votes as a control variable is therefore analytically important, as it isolates the effect of runtime from variation in title visibility, thereby strengthening the internal validity of the estimates.
 
-These findings challenge the assumption that longer films tend to be rated more favourably (Moon et al., 2009), suggesting that runtime is not a reliable determinant of perceived quality. The observation that rating distributions differ substantially across genres further implies that generalisations about an optimal film length are misleading without genre-specific consideration. Including the number of votes as a control variable is analytically important, as it isolates the effect of runtime from variation in title visibility, thereby strengthening the internal validity of the estimates.
+As shown in the boxplot (see gen/output/rating_by_genre.png), average ratings vary substantially across genres. For example, the average ratings of the genres Biography and Documentary are noticeably higher than those of Horror. This suggests that genre may play an important moderating role in the relationship between runtime and rating.
 
+Further analysis shows trends over time (see gen/output/year_vs_rating.png).
+
+Finally, we assess the validity of the regression model (see gen/output/model_diagnostics.png).
+
+## Reproducibility
+The findings of this study are presented in a structured R Markdown report. In this report, the complete data analysis is documented step by step. The report includes data preparation, descriptive statistics, regression analysis, and visualisations such as scatterplots and boxplots.
+
+Furthermore, the workflow is fully reproducible. The IMDb data can be downloaded automatically and analysed through the script. This allows other researchers to replicate the study easily or extend the analysis using different selection criteria, such as focusing on a specific genre. All scripts are version-controlled using Git and hosted in a public GitHub repository, ensuring full transparency and accessibility of the analytical workflow.
+
+## Interpretation and relevance
+The findings suggest that runtime, on its own, is a very weak predictor of the average IMDb rating. This is relevant because it challenges the assumption that longer movies necessarily receive higher ratings (Moon et al., 2009). In practical terms, this indicates that longer runtime is not a reliable strategy for achieving higher ratings.
+
+In addition, the results show substantial variation in ratings across genre categories. This implies that general statements about an “ideal movie length” may be misleading and that such conclusions should instead be approached in a genre-specific manner.
+
+Including the number of votes as a control variable is essential for a more accurate interpretation of the results. By controlling for the number of votes, the effect of runtime is estimated while accounting for variation in title visibility and popularity, which strengthens the internal validity of the analysis. Including the release year as an additional control variable further strenghtens the analysis by accounting for potential changes in rating behaviour over time. Together, these two control variables help ensure that the estimated effect of runtime on average rating is not confounded by differences in movie popularity or the time period in which a film was released.
 
 ## Repository Overview 
 The repository is organised to ensure reproducibility and transparency. Scripts for data acquisition, preparation, and analysis are separated into dedicated subdirectories, and the master makefile automates the complete pipeline from data download to final output.
