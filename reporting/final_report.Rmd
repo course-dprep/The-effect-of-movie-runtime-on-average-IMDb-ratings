@@ -33,6 +33,7 @@ The findings of this study are relevant for both consumers and platforms. For co
 # =========================================================
 
 The data used in this study are obtained from the [official IMDb  datasets](https://datasets.imdbws.com/), specifically we used these two datasets:
+
 - [title.basics.tsv.gz](https://datasets.imdbws.com/title.basics.tsv.gz)
 - [title.ratings.tsv.gz](https://datasets.imdbws.com/title.ratings.tsv.gz)
 
@@ -87,7 +88,9 @@ Preliminary analysis shows that the relationship between runtime and average IMD
 
 This pattern is also visible in the scatterplot below, where the regression line shows only a slight positive trend and the data points are widely dispersed. This suggests substantial unexplained variation in ratings across movies with similar runtimes. In other words, runtime alone does not appear to be a strong predictor of the average IMDb rating of a movie.
 
-![Runtime vs rating](../gen/output/runtime_vs_rating.png)
+```{r runtime-plot, echo=FALSE, out.width='85%', fig.align='center'}
+knitr::include_graphics("../gen/output/runtime_vs_rating.png")
+```
 
 In other words, runtime alone does not appear to be a strong predictor of the average IMDb rating of a movie.
 
@@ -95,15 +98,22 @@ The correlation between the log-transformed number of votes and average rating i
 
 As shown in the boxplot below. Average ratings vary substantially across genres. For example, the average ratings of the genres *Biography* and *Documentary* are noticeably higher than those of *Horror*. This suggests that genre may play an important moderating role in the relationship between runtime and rating.
 
-![Rating by genre](../gen/output/rating_by_genre.png)
+```{r genre-plot, echo=FALSE, out.width='85%', fig.align='center'}
+knitr::include_graphics("../gen/output/rating_by_genre.png")
+```
+
 
 Further analysis shows trends over time:
 
-![Year vs rating](../gen/output/year_vs_rating.png)
+```{r year-plot, echo=FALSE, out.width='85%', fig.align='center'}
+knitr::include_graphics("../gen/output/year_vs_rating.png")
+```
 
 Finally, we assess the validity of the regression model:
 
-![Model diagnostics](../gen/output/model_diagnostics.png)
+```{r diagnostics-plot, echo=FALSE, out.width='85%', fig.align='center'}
+knitr::include_graphics("../gen/output/model_diagnostics.png")
+```
 
 # =========================================================
 # REPRODUCIBILITY
@@ -129,14 +139,16 @@ Including the number of votes as a control variable is essential for a more accu
 
 The repository is organised to ensure reproducibility and transparency. Scripts for data acquisition, preparation, and analysis are separated into dedicated subdirectories, and the master makefile automates the complete pipeline from data download to final output.
 
-imdb-runtime-rating/
-- data/
-  - title.basics.tsv.gz
-  - title.ratings.tsv.gz
-- reporting/
-- src/
-- README.md
-- makefile
+## Repository overview
+
+- `data/`
+  - `title.basics.tsv.gz`
+  - `title.ratings.tsv.gz`
+- `reporting/`
+  - `final_report.Rmd`
+- `src/`
+- `README.md`
+- `makefile`
 
 
 # =========================================================
@@ -152,7 +164,7 @@ This project was developed using R (version 4.2.0 or higher) and RStudio. The fo
 
 If any of these packages are not yet installed, they can be installed collectively using:
 
-```
+```text
 install.packages(c("readr", "dplyr", "tidyr", "rmarkdown", "knitr"))
 ```
 
@@ -164,7 +176,7 @@ To reproduce the results of this workflow, follow these steps:
 **Step 1: Clone the repository**
 
 Using Command Prompt (Windows) or Terminal (Mac), clone the repository to your local machine:
-```
+```text
 git clone https://github.com/course-dprep/The-effect-of-movie-runtime-on-average-IMDb-ratings.git
 ```
 Once cloned, all necessary folders and scripts will be available locally.
@@ -172,7 +184,7 @@ Once cloned, all necessary folders and scripts will be available locally.
 **Step 2: Download the IMDb datasets**
 
 Navigate to src/data-preparation/ and run download-data.R. This script automatically creates a data/ folder and downloads the required IMDb datasets:
-```
+```text
 # Create data folder
 dir.create("data", showWarnings = FALSE, recursive = TRUE)
 
@@ -187,7 +199,8 @@ download.file("https://datasets.imdbws.com/title.ratings.tsv.gz",
 **Step 3: Load packages and read data** 
 
 Run data-cleaning.R to load the required packages and import the downloaded datasets into RStudio:
-```
+
+```text
 # Load required libraries
 library(readr)
 library(dplyr)
@@ -204,9 +217,14 @@ After completing these steps, the full analysis pipeline, including data merging
 # =========================================================
 This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
 
-The project is implemented by team 1 members: 
-- Bente van Brussel: b.j.m.vanbrussel@tilburguniversity.edu
-- Niels Deenen: n.deenen@tilburguniversity.edu
-- David Lindwer: d.j.lindwer@tilburguniversity.edu
-- Demi Verburg: d.verburg@tilburguniversity.edu
-- Marijn van Dooren: m.vandooren@tilburguniversity.edu
+The project is implemented by team 1 members:
+
+- **Bente van Brussel**: b.j.m.vanbrussel@tilburguniversity.edu
+
+- **Niels Deenen**: n.deenen@tilburguniversity.edu
+
+- **David Lindwer**: d.j.lindwer@tilburguniversity.edu
+
+- **Demi Verburg**: d.verburg@tilburguniversity.edu
+
+- **Marijn van Dooren**: m.vandooren@tilburguniversity.edu
