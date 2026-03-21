@@ -12,19 +12,22 @@ knitr::opts_chunk$set(echo = TRUE)
 # INTRODUCTION
 # =========================================================
 
-Online ratings of films play an important role in shaping consumer viewing decisions and influencing recommendation systems on streaming platforms. It is therefore relevant to examine which characteristics of audiovisual content are associated with higher audience ratings. One potentially relevant characteristic is runtime.
+Online film ratings play a crucial role in shaping consumer viewing decisions and form a key input for recommendation systems on streaming platforms. As a result, understanding which characteristics of audiovisual content are associated with higher audience ratings is of both theoretical and practical importance. One potentially relevant characteristic in this context is runtime.
 
-Research by Moon et al. (2009) suggests that longer films tend to receive higher ratings on average, possibly because they are perceived by viewers as more valuable and narratively complex. At the same time, prolonged exposure to audiovisual stimuli may, according to Attention Restoration Theory, lead to cognitive fatigue and reduced viewer attention (Baumgartner & Kühne, 2024). This may influence how viewers evaluate the quality of a film or television production.
+Previous research suggests that runtime may influence audience evaluations. For example, Moon et al. (2009) find that longer films tend to receive higher ratings on average. One explanation is that longer films may be perceived as offering greater narrative depth, complexity, and overall value, which can positively affect audience evaluations. In this view, runtime functions as a signal of quality.
 
-The relationship between runtime and ratings is also likely to differ by genre, as different genres create distinct expectations regarding narrative pacing, story development, and ideal length.
+At the same time, alternative theoretical perspectives suggest the opposite effect. According to Attention Restoration Theory, prolonged exposure to audiovisual stimuli may lead to cognitive fatigue and reduced attentional capacity (Baumgartner & Kühne, 2024). This decrease in attention may negatively affect viewers’ ability to process and appreciate a film, potentially resulting in lower evaluations. Taken together, these perspectives lead to contrasting theoretical expectations: while longer films may enhance perceived quality, they may simultaneously reduce viewer engagement due to cognitive fatigue. As a result, theoretical perspectives provide conflicting expectations regarding the relationship between runtime and audience ratings.
 
-The central research question is therefore formulated as follows:
+Moreover, the effect of runtime is unlikely to be uniform across all types of films. Different genres create distinct expectations regarding narrative pacing, story development, and appropriate length. For example, longer runtimes may be more acceptable or even expected in genres such as drama or biography, whereas shorter and faster-paced formats may be more suitable for genres such as comedy or horror. This suggests that genre may play an important moderating role in the relationship between runtime and ratings.
+Based on these considerations, the central research question is formulated as follows:
+
+Based on these considerations, the central research question is formulated as follows:
 
 **To what extent does runtime predict the average IMDb rating of films, and to what extent is this relationship moderated by genre?**
 
-This research question aligns well with the available IMDb datasets and focuses on whether movie length is associated with perceived quality, as reflected in average IMDb ratings. In addition, the number of votes may affect the reliability and stability of ratings. Movies with only a small number of votes may receive more extreme or biased evaluations. Therefore, the number of votes is included as a control variable.
+This research question aligns well with the available IMDb datasets and focuses on whether movie length is associated with perceived quality, as reflected in average IMDb ratings. In addition, the number of votes may affect the reliability and stability of ratings. Movies with only a small number of votes may receive more extreme or biased evaluations. Therefore, the number of votes is included as a control variable. Release year is also included as a control variable to account for potential temporal trends in IMDb ratings. Audience preferences, rating behaviour, and industry standards may have changed over time, which could systematically influence how films are evaluated. For example, more recent films may receive different ratings due to changing expectations, technological advancements, or shifts in genre popularity. By controlling for release year, the analysis accounts for these time-related effects and provides a more accurate estimate of the relationship between runtime and average rating.
 
-The findings of this study are relevant for both consumers interpreting online ratings and platforms that rely on rating-based recommendation algorithms.
+The findings of this study are relevant for both consumers and platforms. For consumers, they provide insight into how to interpret online ratings in relation to film characteristics such as runtime. For platforms, the results may inform the design of recommendation algorithms that rely on rating data, by clarifying whether and how runtime contributes to perceived content quality.
 
 # =========================================================
 # DATA
@@ -221,5 +224,5 @@ The project is implemented by team 1 members:
 - Bente van Brussel: b.j.m.vanbrussel@tilburguniversity.edu
 - Niels Deenen: n.deenen@tilburguniversity.edu
 - David Lindwer: d.j.lindwer@tilburguniversity.edu
-- Demi Verburg: d.verburg@tilburguniveristy.edu
+- Demi Verburg: d.verburg@tilburguniversity.edu
 - Marijn van Dooren: m.vandooren@tilburguniversity.edu
