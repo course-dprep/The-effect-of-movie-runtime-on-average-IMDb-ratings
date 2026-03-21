@@ -30,15 +30,16 @@ The findings of this study are relevant for both consumers interpreting online r
 # DATA
 # =========================================================
 
-The data used in this study are obtained from the official IMDb datasets, specifically `title.basics.tsv.gz` and `title.ratings.tsv.gz`. These datasets are programmatically downloaded within the R script to ensure full reproducibility.
+The data used in this study are obtained from the [official IMDb  datasets](https://datasets.imdbws.com/), specifically we used these two datasets:
+- [title.basics.tsv.gz](https://datasets.imdbws.com/title.basics.tsv.gz)
+- [title.ratings.tsv.gz](https://datasets.imdbws.com/title.ratings.tsv.gz)
 
-The `title.basics` dataset contains information on content characteristics such as title type, runtime, and genres. The `title.ratings` dataset includes the average user rating and the number of user votes. The two datasets are merged using the unique identifier `tconst`.
+These datasets are programmatically downloaded within the R script to ensure full reproducibility. The title.basics dataset contains **12,373,014** observations and includes information on title characteristics such as title type, runtime, and genre. The title.ratings dataset contains **1,650,357** observations and provides the average user rating and the number of user votes. The two datasets are merged using the unique identifier tconst.
 
-To ensure a consistent and comparable sample, the analysis is restricted to movies (`titleType = "movie"`). Titles with missing values for runtime, average rating, or number of votes are removed.
+To ensure a consistent and comparable sample, the analysis is restricted to movies (titleType = "movie"). Titles with missing values for runtime, average rating, or number of votes are excluded.
 
-IMDb allows multiple genres per title. To avoid duplicate observations and ensure one observation per film, only the first listed genre is used as the primary genre classification, referred to as the main genre.
+Because IMDb assigns multiple genres to some titles, only the first listed genre is retained as the primary genre classification to avoid duplicate observations and ensure one observation per film. After cleaning and filtering, the final merged dataset contains **299,473** unique movie observations.
 
-After cleaning and filtering, the final dataset contains **299,473 unique movie observations**.
 
 # =========================================================
 # VARIABLES
@@ -70,27 +71,25 @@ Genre is treated as a categorical variable and operationalised using dummy varia
 # METHOD
 # =========================================================
 
-To answer the research question, this study uses linear regression analysis. The dependent variable is the average IMDb rating and runtime serves as the independent variable. The number of votes is included as a control variable to account for differences in popularity and visibility across movies. The second control variable is the release year. This is included as a second control variable to account for temporal trends in rating behaviour. 
+To answer the research question, linear regression analysis is employed, as both the dependent variable (average IMDb rating) and the independent variable (runtime in minutes) are continuous. Prior to analysis, the data were prepared through several cleaning steps. The two IMDb datasets (title.basics and title.ratings) were merged using the unique identifier tconst and filtered to retain only feature films (titleType = "movie"). Runtime outliers were removed by restricting observations to films between 40 and 240 minutes, based on inspection of the empirical quantile distribution. Titles with missing values on runtime, average rating, number of votes, or release year were excluded via listwise deletion, yielding a final analytic sample of 299,473 films.
 
-To examine whether the relationship between runtime and average rating differs across genre categories, genre is included as a moderator. This makes it possible to test whether the effect of runtime on ratings varies across genres.
+To address the skewed distribution of the number of votes, this variable was log-transformed (log_votes = log(numVotes + 1)) before inclusion as a control variable, improving the normality of its distribution and reducing the influence of highly voted outliers. Because IMDb assigns multiple genres per title, only the first-listed genre was retained as the primary genre classification (main_genre) to maintain one observation per film. Genres were subsequently grouped into the ten most frequent categories, with all remaining genres collapsed into an "Other" category, resulting in an eleven-level categorical moderator (genre10).
 
-Linear regression is the most suitable method for this research question because both the dependent variable (`averageRating`) and the independent variable (`runtimeMinutes`) are continuous.
-
-Three models are estimated. The first model includes runtime as a predictor of average rating. The second model adds the two control variables: number of votes (log-transformed) and release year. This model controls for the effect of runtime from variation in popularity and temporal trends. The third model extends the second model by including genre as a moderator, allowing the effect of runtime to vary across genre categories. Model fit is compared across models using ANOVA.
+The moderation hypothesis is tested by including interaction terms between runtime and genre in the regression model, allowing the slope of runtime to vary across genre categories. Release year was additionally examined as a potential covariate through correlation analysis. All analyses were conducted in R (version 4.0 or higher).
 
 # =========================================================
 # PREVIEW OF FINDINGS
 # =========================================================
 
-Preliminary analysis shows that the relationship between runtime and average IMDb rating is statistically very weak. The correlation between runtime and average rating is approximately **0.008**, which is very close to zero and indicates that longer movies do not systematically receive higher ratings.
+Preliminary analysis shows that the relationship between runtime and average IMDb rating is statistically very weak. The Pearson correlation between runtime and average rating is approximately r = 0.008, which is very close to zero and indicates that longer movies do not systematically receive higher ratings. This challenges the assumption that longer films tend to be rated more favourably (Moon et al., 2009), suggesting that runtime is not a reliable determinant of perceived quality.
 
-This pattern is also visible in the scatterplot below, where the regression line shows only a slight positive trend and the data points are widely dispersed. This suggests substantial unexplained variation in ratings across movies with similar runtimes.
+This pattern is also visible in the scatterplot below, where the regression line shows only a slight positive trend and the data points are widely dispersed. This suggests substantial unexplained variation in ratings across movies with similar runtimes. In other words, runtime alone does not appear to be a strong predictor of the average IMDb rating of a movie.
 
 ![Runtime vs rating](../gen/output/runtime_vs_rating.png)
 
 In other words, runtime alone does not appear to be a strong predictor of the average IMDb rating of a movie.
 
-The correlation between the log-transformed number of votes and average rating is approximately **-0.08**, indicating a very small negative relationship. This may suggest that movies with many votes tend to receive slightly more critical evaluations, possibly because they are exposed to a broader and more diverse audience.
+The correlation between the log-transformed number of votes and average rating is approximately **-0.08**, indicating a very small negative relationship. This may reflect a diversification effect, whereby wider viewership introduces more heterogeneous and critical evaluations. Including the number of votes as a control variable is therefore analytically important, as it isolates the effect of runtime from variation in title visibility, thereby strengthening the internal validity of the estimates.
 
 As shown in the boxplot below. Average ratings vary substantially across genres. For example, the average ratings of the genres *Biography* and *Documentary* are noticeably higher than those of *Horror*. This suggests that genre may play an important moderating role in the relationship between runtime and rating.
 
@@ -126,83 +125,99 @@ Including the number of votes as a control variable is essential for a more accu
 # REPOSITORY OVERVIEW
 # =========================================================
 
-## Data and Reproducibility
+The repository is organised to ensure reproducibility and transparency. Scripts for data acquisition, preparation, and analysis are separated into dedicated subdirectories, and the master makefile automates the complete pipeline from data download to final output.
 
-The analysis uses the official IMDb datasets:
+imdb-runtime-rating/
+│
+├── data/                            # Raw and downloaded data files
+│   ├── title.basics.tsv.gz          # IMDb basics dataset (auto-downloaded)
+│   └── title.ratings.tsv.gz         # IMDb ratings dataset (auto-downloaded)
+│
+├── reporting/                       # R Markdown reports
+│   ├── data_exploration.Rmd         # Exploratory data analysis and visualisations
+│   └── final_report.Rmd             # Full documented analysis report
+│
+├── src/                             # Source code
+│   ├── analysis/                    # Statistical modelling scripts
+│   │   ├── analysis.R               # Linear regression and moderation analysis
+│   │   └── makefile                 # Pipeline automation for analysis step
+│   │
+│   └── data-preparation/            # Data cleaning and preparation scripts
+│       ├── data-cleaning.R          # Filtering, merging, variable construction
+│       ├── download-data.R          # Automated download of IMDb datasets
+│       └── makefile                 # Pipeline automation for preparation step
+│
+├── .gitignore                       # Files excluded from version control
+├── README.md                        # Project documentation and running instructions
+└── makefile                         # Master pipeline automation
 
-- `title.basics.tsv.gz`
-- `title.ratings.tsv.gz`
-
-These datasets are programmatically downloaded via scripts in the repository to ensure full reproducibility. The datasets are merged using the unique identifier `tconst`.
-
-To ensure a consistent analytical sample, the following steps are applied:
-
-- The data are restricted to entries where `titleType = "movie"`.
-- Observations with missing runtime, rating, or vote counts are removed.
-- Observations with a missing release year are removed.
-- Because IMDb assigns multiple genres per title, only the first listed genre is used as the primary genre classification to maintain one observation per film.
-- Genres are further grouped into the ten most frequent categories, with remaining genres combined into an `"Other"` category.
-
-After cleaning and filtering, the final dataset contains **299,718 unique movie observations**.
-
-## Variables
-
-- **Dependent variable:** `averageRating` — continuous IMDb user rating from 1 to 10, representing audience evaluation.
-- **Independent variable:** `runtimeMinutes` — movie runtime in minutes.
-- **Control variable:** `numVotes` (log-transformed) — total number of user votes, capturing visibility and popularity.
-- **Control variable:** `startYear` - release year of the movie, capturing temporal trends in rating behaviour
-- **Moderator:** `genre` (main genre, top 10 + Other) — categorical variable used to test whether the runtime–rating relationship differs across genres.
-
-## Repository Structure
-
-The repository is organised to support transparency and reproducibility:
-
-- `data/` — scripts for automated data acquisition
-- `src/data-preparation/` — data cleaning and variable construction
-- `src/analysis/` — analytical code
-- `reporting/` — R Markdown report with data preparation and exploratory analysis
-- `makefile` — pipeline automation
-- `README.md` — project documentation
 
 # =========================================================
 # DEPENDENCIES 
 # =========================================================
-This project was developed using: R (version 4.0 or higher) RStudio (recommended)
+This project was developed using R (version 4.2.0 or higher) and RStudio. The following R packages are required to run the workflow:
 
-The following R packages are required: readr dplyr tidyr rmarkdown knitr
+- `readr` for importing the IMDb .tsv.gz datasets
+- `dplyr` for data filtering, merging, and variable construction
+- `tidyr` for data reshaping and handling missing values
+- `rmarkdown` for rendering the R Markdown reports
+- `knitr` for document knitting and output generation
 
-If these packages are not installed, they can be installed using: install.packages(c("readr", "dplyr", "tidyr", "rmarkdown", "knitr"))
+If any of these packages are not yet installed, they can be installed collectively using:
+
+```
+install.packages(c("readr", "dplyr", "tidyr", "rmarkdown", "knitr"))
+```
 
 # =========================================================
 # RUNNING INSTRUCTIONS 
 # =========================================================
 To reproduce the results of this workflow, follow these steps:
 
-Open the R Markdown file in RStudio.
-- Make sure all required packages are installed.
-- Click “Knit” to render the document.
-- The script will automatically:
+**Step 1: Clone the repository**
 
-- Open the R Markdown file in RStudio.
-- Make sure all required packages are installed.
-- Click “Knit” to render the document.
+Using Command Prompt (Windows) or Terminal (Mac), clone the repository to your local machine:
+```
+git clone https://github.com/course-dprep/The-effect-of-movie-runtime-on-average-IMDb-ratings.git
+```
+Once cloned, all necessary folders and scripts will be available locally.
 
-The script will automatically:
-- Download the IMDb datasets (title.basics.tsv.gz and title.ratings.tsv.gz)
-- Merge the datasets using tconst
-- Filter the data to include only movies
-- Create a main_genre variable (first listed genre)
-- Clean missing values
-- Create the log-transformed variable log_votes
-- Perform data exploration and generate all tables and plots No manual data preprocessing is required.
+**Step 2: Download the IMDb datasets**
+
+Navigate to src/data-preparation/ and run download-data.R. This script automatically creates a data/ folder and downloads the required IMDb datasets:
+```
+# Create data folder
+dir.create("data", showWarnings = FALSE, recursive = TRUE)
+
+# Download IMDb datasets
+download.file("https://datasets.imdbws.com/title.basics.tsv.gz",
+              "data/title.basics.tsv.gz")
+
+download.file("https://datasets.imdbws.com/title.ratings.tsv.gz",
+              "data/title.ratings.tsv.gz")
+```
+
+**Step 3: Load packages and read data** 
+
+Run data-cleaning.R to load the required packages and import the downloaded datasets into RStudio:
+```
+# Load required libraries
+library(readr)
+library(dplyr)
+library(tidyr)
+
+# Read datasets
+basics  <- read_tsv("data/title.basics.tsv.gz", na = "\\N")
+ratings <- read_tsv("data/title.ratings.tsv.gz", na = "\\N")
+```
+After completing these steps, the full analysis pipeline, including data merging, cleaning, variable construction, and regression analysis can be reproduced by knitting final_report.Rmd in RStudio or by executing the master makefile from the terminal. No manual data preprocessing is required.
 
 # =========================================================
 # ABOUT
 # =========================================================
-This project is set up as part of the Master's course Data Preparation & Workflow Management at the Department of Marketing, Tilburg University, the Netherlands.
+This project is set up as part of the Master's course [Data Preparation & Workflow Management](https://dprep.hannesdatta.com/) at the [Department of Marketing](https://www.tilburguniversity.edu/about/schools/economics-and-management/organization/departments/marketing), [Tilburg University](https://www.tilburguniversity.edu/), the Netherlands.
 
-The project is implemented by team 1 members:
-
+The project is implemented by team 1 members: 
 - Bente van Brussel: b.j.m.vanbrussel@tilburguniversity.edu
 - Niels Deenen: n.deenen@tilburguniversity.edu
 - David Lindwer: d.j.lindwer@tilburguniversity.edu
