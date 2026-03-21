@@ -30,6 +30,9 @@ The independent variable is the runtime of a movie, measured in minutes and trea
 ### Control variable - Number of votes (numVotes)
 This control variable measures the total number of IMDb user votes and captures the popularity and visibility of a title. Due to its strongly skewed distribution, it is log-transformed (log_votes = log(numVotes + 1)) prior to inclusion in the regression analysis, improving robustness against the influence of extreme values.
 
+### Additional control variable – Release year (startYear)
+Release year is included as an additional control variable to account for potential temporal trends in average IMDb ratings. It is measured as a continuous numeric variable representing the year of theatrical release. Correlation analysis (r = [insert value]) indicated a small relationship between release year and average rating, justifying its inclusion as a covariate to isolate the effect of runtime from historical rating patterns.
+
 ### Moderator - Genre (genre)
 Genre is included as a moderating variable to test whether the relationship between runtime and average rating differs across content types. As IMDb assigns multiple genres per title, only the first-listed genre is retained as the primary genre classification (main_genre) to ensure one observation per film. Genre is treated as a categorical variable and operationalised using dummy variables in the regression model, with one genre serving as the reference category. To ensure sufficient cell sizes and interpretability, genres are grouped into the ten most frequent categories, with all remaining genres combined into an "Other" category, resulting in an eleven-level factor (genre10).
 
