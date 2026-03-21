@@ -130,28 +130,13 @@ Including the number of votes as a control variable is essential for a more accu
 The repository is organised to ensure reproducibility and transparency. Scripts for data acquisition, preparation, and analysis are separated into dedicated subdirectories, and the master makefile automates the complete pipeline from data download to final output.
 
 imdb-runtime-rating/
-│
-├── data/                            # Raw and downloaded data files
-│   ├── title.basics.tsv.gz          # IMDb basics dataset (auto-downloaded)
-│   └── title.ratings.tsv.gz         # IMDb ratings dataset (auto-downloaded)
-│
-├── reporting/                       # R Markdown reports
-│   ├── data_exploration.Rmd         # Exploratory data analysis and visualisations
-│   └── final_report.Rmd             # Full documented analysis report
-│
-├── src/                             # Source code
-│   ├── analysis/                    # Statistical modelling scripts
-│   │   ├── analysis.R               # Linear regression and moderation analysis
-│   │   └── makefile                 # Pipeline automation for analysis step
-│   │
-│   └── data-preparation/            # Data cleaning and preparation scripts
-│       ├── data-cleaning.R          # Filtering, merging, variable construction
-│       ├── download-data.R          # Automated download of IMDb datasets
-│       └── makefile                 # Pipeline automation for preparation step
-│
-├── .gitignore                       # Files excluded from version control
-├── README.md                        # Project documentation and running instructions
-└── makefile                         # Master pipeline automation
+- data/
+  - title.basics.tsv.gz
+  - title.ratings.tsv.gz
+- reporting/
+- src/
+- README.md
+- makefile
 
 
 # =========================================================
