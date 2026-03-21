@@ -48,15 +48,15 @@ The moderation hypothesis is tested by including interaction terms between runti
 ## Preview of Findings  
 Preliminary analysis shows that the relationship between runtime and average IMDb rating is statistically very weak. The Pearson correlation between runtime and average rating is approximately r = 0.008, which is very close to zero and indicates that longer movies do not systematically receive higher ratings. This challenges the assumption that longer films tend to be rated more favourably (Moon et al., 2009), suggesting that runtime is not a reliable determinant of perceived quality.
 
-This pattern is also visible in the scatterplot (see gen/output/runtime_vs_rating.png), where the regression line shows only a slight positive trend and the data points are widely dispersed. This suggests substantial unexplained variation in ratings across movies with similar runtimes. In other words, runtime alone does not appear to be a strong predictor of the average IMDb rating of a movie.
+This pattern is also visible in the scatterplot (see final_report.pdf), where the regression line shows only a slight positive trend and the data points are widely dispersed. This suggests substantial unexplained variation in ratings across movies with similar runtimes. In other words, runtime alone does not appear to be a strong predictor of the average IMDb rating of a movie.
 
 The correlation between the log-transformed number of votes and average rating is approximately -0.08, indicating a very small negative relationship. This may reflect a diversification effect, whereby wider viewership introduces more heterogeneous and critical evaluations. Including the number of votes as a control variable is therefore analytically important, as it isolates the effect of runtime from variation in title visibility, thereby strengthening the internal validity of the estimates.
 
-As shown in the boxplot (see gen/output/rating_by_genre.png), average ratings vary substantially across genres. For example, the average ratings of the genres Biography and Documentary are noticeably higher than those of Horror. This suggests that genre may play an important moderating role in the relationship between runtime and rating.
+As shown in the boxplot (see final_report.pdf), average ratings vary substantially across genres. For example, the average ratings of the genres Biography and Documentary are noticeably higher than those of Horror. This suggests that genre may play an important moderating role in the relationship between runtime and rating.
 
-Further analysis shows trends over time (see gen/output/year_vs_rating.png).
+Further analysis shows trends over time (see final_report.pdf).
 
-Finally, we assess the validity of the regression model (see gen/output/model_diagnostics.png).
+Finally, we assess the validity of the regression model (see final_report.pdf).
 
 ## Reproducibility
 The findings of this study are presented in a structured R Markdown report. In this report, the complete data analysis is documented step by step. The report includes data preparation, descriptive statistics, regression analysis, and visualisations such as scatterplots and boxplots.
