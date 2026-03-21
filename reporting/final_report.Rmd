@@ -147,6 +147,13 @@ The repository is organised to ensure reproducibility and transparency. Scripts 
 - `reporting/`
   - `final_report.Rmd`
 - `src/`
+  - `analysis/`
+    - `analysis.R`
+    - `makefile`
+  - `data-preparation/`
+    - `data-cleaning.R`
+    - `download-data.R`
+    - `makefile`
 - `README.md`
 - `makefile`
 
@@ -173,6 +180,7 @@ install.packages(c("readr", "dplyr", "tidyr", "rmarkdown", "knitr"))
 # =========================================================
 To reproduce the results of this workflow, follow these steps:
 
+
 **Step 1: Clone the repository**
 
 Using Command Prompt (Windows) or Terminal (Mac), clone the repository to your local machine:
@@ -180,6 +188,7 @@ Using Command Prompt (Windows) or Terminal (Mac), clone the repository to your l
 git clone https://github.com/course-dprep/The-effect-of-movie-runtime-on-average-IMDb-ratings.git
 ```
 Once cloned, all necessary folders and scripts will be available locally.
+
 
 **Step 2: Download the IMDb datasets**
 
