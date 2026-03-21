@@ -19,7 +19,6 @@ Previous research suggests that runtime may influence audience evaluations. For 
 At the same time, alternative theoretical perspectives suggest the opposite effect. According to Attention Restoration Theory, prolonged exposure to audiovisual stimuli may lead to cognitive fatigue and reduced attentional capacity (Baumgartner & Kühne, 2024). This decrease in attention may negatively affect viewers’ ability to process and appreciate a film, potentially resulting in lower evaluations. Taken together, these perspectives lead to contrasting theoretical expectations: while longer films may enhance perceived quality, they may simultaneously reduce viewer engagement due to cognitive fatigue. As a result, theoretical perspectives provide conflicting expectations regarding the relationship between runtime and audience ratings.
 
 Moreover, the effect of runtime is unlikely to be uniform across all types of films. Different genres create distinct expectations regarding narrative pacing, story development, and appropriate length. For example, longer runtimes may be more acceptable or even expected in genres such as drama or biography, whereas shorter and faster-paced formats may be more suitable for genres such as comedy or horror. This suggests that genre may play an important moderating role in the relationship between runtime and ratings.
-Based on these considerations, the central research question is formulated as follows:
 
 Based on these considerations, the central research question is formulated as follows:
 
